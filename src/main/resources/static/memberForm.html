@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>PortFolio</title>
+
+<link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+
+<!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
+<!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<script type="text/javascript">
+  $(function(){
+	 
+	$("#loginMember").click(function(){
+	 alert("loginMember"); 
+	});
+  });
+  </script>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/index.html">PortFolio</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="/memberForm.html">회원가입</a>
+					</li>
+					<li>
+						<button type="button" class="btn btn-primary navbar-btn" id="loginMember">로그인</button>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	
+<div class="container">
+<form>
+	<div class="form-group">
+		<label for="exampleInputEmail1">이메일 주소</label>
+		<input type="email" class="form-control" id="exampleInputEmail1" placeholder="이메일을 입력하세요">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword1">암호</label>
+		<input type="password" class="form-control" id="exampleInputPassword1" placeholder="암호">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputFile">파일 업로드</label>
+		<input type="file" id="exampleInputFile">
+		<p class="help-block">여기에 블록레벨 도움말 예제</p>
+	</div>
+	<div class="checkbox">
+		<label>
+			<input type="checkbox"> 입력을 기억합니다
+		</label>
+	</div>
+	<button type="submit" class="btn btn-default">제출</button>
+</form>
+</div>
+</body>
+</html>
