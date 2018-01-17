@@ -2,7 +2,6 @@ package org.hibernateBoard.service.impl;
 
 import java.util.List;
 
-import org.hibernateBoard.VO.UserVO;
 import org.hibernateBoard.entity.User;
 import org.hibernateBoard.repository.UserRepository;
 import org.hibernateBoard.service.UserService;

@@ -2,7 +2,6 @@ package org.hibernateBoard.controller;
 
 import java.util.List;
 
-import org.hibernateBoard.VO.UserVO;
 import org.hibernateBoard.entity.User;
 import org.hibernateBoard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
