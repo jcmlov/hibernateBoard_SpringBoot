@@ -1,20 +1,20 @@
-package org.hibernateBoard.vo;
+package org.hibernateBoard.VO;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class UserVO {
 
-	private Long userNo;
+	private int userNo;
 	private String userId;
 	private String userNm;
 	private String userEmail;
 	private String userPw;
 
-	public Long getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(Long userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 

@@ -5,18 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.TableGenerator;
-
+import javax.persistence.Table;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
-@TableGenerator(name="USER_NO_SEQ_GENERATOR", table="USER", pkColumnValue="USER_NO_SEQ", allocationSize=1)
-//name=식별자 생성기 이름, table=키생성 테이블 이름, pkColumnValue=DB에 등록될 시퀀스이름)
+@Table(name="user")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType. TABLE, generator = "USER_NO_SEQ_GENERATOR")
-	private Long userNo;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int userNo;
 
 	@Column(nullable = false, length=20)
 	private String userId;
@@ -27,7 +25,7 @@ public class User {
 	@Column(nullable = false, length=500)
 	private String userPw;
 
-	public void setUserNo(Long userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
