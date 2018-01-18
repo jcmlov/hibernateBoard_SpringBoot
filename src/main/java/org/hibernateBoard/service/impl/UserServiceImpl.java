@@ -6,6 +6,9 @@ import org.hibernateBoard.entity.User;
 import org.hibernateBoard.repository.UserRepository;
 import org.hibernateBoard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> userList() {
 
-		List<User> resultList = userRepository.findAll();
+		List<User> resultList = userRepository.findAll(new Sort(new Order(Direction.DESC, "userNo")));
 		
 		return resultList;
 	}

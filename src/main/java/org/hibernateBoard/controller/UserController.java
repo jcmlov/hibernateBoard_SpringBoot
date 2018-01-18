@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(value="/user")
 public class UserController {
 
 	@Autowired
@@ -23,15 +25,22 @@ public class UserController {
 
 		model.addAttribute("userList", userList);
 		
-		return "userList";
+		return "/user/userList";
 		
 	}
+	
+	@GetMapping(value="/userForm")
+	public String form(Model model) {
+		
+		return "/user/userForm";
+	}
+	
 	
 	@PostMapping(value="/userCreate")
 	public String create(User user, Model model) {
 		
 		userService.create(user);
 		
-		return "redirect:/userList";
+		return "redirect:/user/userList";
 	}
 }
