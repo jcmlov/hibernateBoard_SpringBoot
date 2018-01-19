@@ -8,5 +8,10 @@ public interface UserService {
 	
 	public List<User> userList();
 	
+	public User userDetail(long userNo);
+	
 	public void create(User user);
+	
+	public void update(User newUser);
+	
 }

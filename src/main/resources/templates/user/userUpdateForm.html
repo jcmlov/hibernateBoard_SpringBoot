@@ -27,6 +27,10 @@
 		alert("loginMember"); 
 	});
 	
+	$("#listBtn").on("click", function(){
+		location.href="/user/userList";
+	});
+	
 	$("#submitBtn").on("click", function(){
 		
 		if($("#userNm").val() == '') {
@@ -47,30 +51,33 @@
 		}
 		
 		$("#userForm").submit();
+	});
   });
   </script>
 <body>
 	{{> include/navbar }}
 	
 	<div class="container">
-		<form action="/user/userCreate" method="post" id="userForm" name="userForm">
+		<form action="/user/userUpdate" method="post" id="userForm" name="userForm">
+			<input type="hidden" id="userNo" name="userNo" value="{{user.userNo}}" />
 			<div class="form-group">
 				<label for="userId">이름</label>
-				<input type="text" class="form-control" id="userNm" name="userNm" placeholder="이름을 입력하세요">
+				<input type="text" class="form-control" id="userNm" name="userNm" value="{{user.userNm}}" placeholder="이름을 입력하세요">
 			</div>
 			<div class="form-group">
 				<label for="userId">이메일</label>
-				<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요">
+				<input type="email" class="form-control" id="userEmail" name="userEmail" value="{{user.userEmail}}" placeholder="이메일을 입력하세요">
 			</div>
 			<div class="form-group">
 				<label for="userId">사용자 아이디</label>
-				<input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요">
+				<input type="text" class="form-control" id="userId" name="userId" value="{{user.userId}}" placeholder="아이디를 입력하세요">
 			</div>
 			<div class="form-group">
 				<label for="userPw">비밀번호</label>
-				<input type="password" class="form-control" id="userPw" name="userPw" placeholder="비밀번호">
+				<input type="password" class="form-control" id="userPw" name="userPw" value="{{user.userPw}}" placeholder="비밀번호">
 			</div>
-			<button type="button" class="btn btn-primary" id="submitBtn">저장</button>
+			<button type="button" class="btn btn-default" id="listBtn">목록</button>
+			<button type="button" class="btn btn-primary" id="submitBtn">수정</button>
 		</form>
 	</div>
 </body>

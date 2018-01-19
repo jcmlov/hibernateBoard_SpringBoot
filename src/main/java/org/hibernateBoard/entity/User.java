@@ -14,31 +14,51 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int userNo;
+	private long userNo;
 
-	@Column(nullable = false, length=20)
+	@Column(nullable=false, length=20)
 	private String userId;
-	@Column(nullable = false, length=20)	
+	@Column(nullable=false, length=20)
 	private String userNm;
-	@Column(nullable = false, length=100)
+	@Column(nullable=false, length=100)
 	private String userEmail;
-	@Column(nullable = false, length=500)
+	@Column(nullable=false, length=500)
 	private String userPw;
 
-	public void setUserNo(int userNo) {
+	public long getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(long userNo) {
 		this.userNo = userNo;
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
+	public String getUserNm() {
+		return userNm;
+	}
+
 	public void setUserNm(String userNm) {
 		this.userNm = userNm;
 	}
 
+	public String getUserEmail() {
+		return userEmail;
+	}
+
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public String getUserPw() {
+		return userPw;
 	}
 
 	public void setUserPw(String userPw) {
@@ -46,7 +66,14 @@ public class User {
 	}
 
 	public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-	
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	public void update(User newUser) {
+		this.userNm = newUser.userNm;
+		this.userEmail = newUser.userEmail;
+		this.userPw = newUser.userPw;
+	}
+
+
 }

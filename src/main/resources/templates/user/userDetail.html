@@ -26,13 +26,46 @@
 	$("#loginMember").click(function(){
 		alert("loginMember"); 
 	});
+	
+	$("#listBtn").on("click", function(){
+		location.href="/user/userList";
+	});
+	
+	$("#updateBtn").on("click", function(){
+		var userNo = $("#userNo").val();
+		
+		location.href="/user/userUpdateForm?userNo=" + userNo;
+	});
+	
   });
   </script>
 <body>
 	{{> include/navbar }}
 	
 	<div class="container">
-	
+		<input type="hidden" id="userNo" value="{{user.userNo}}" />
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th>No</th>
+					<td>{{user.userNo}}</td>
+				</tr>
+				<tr>
+					<th>사용자 이름</th>
+					<td>{{user.userNm}}</td>
+				</tr>
+				<tr>
+					<th>사용자 이메일</th>
+					<td>{{user.userEmail}}</td>
+				</tr>
+				<tr>
+					<th>사용자 ID</th>
+					<td>{{user.userId}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-default" id="listBtn">목록</button>
+		<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 	</div>
 </body>
 </html>

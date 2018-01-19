@@ -22,17 +22,34 @@ public class UserController {
 	public String list(Model model) {
 		
 		List<User> userList = userService.userList();
-
 		model.addAttribute("userList", userList);
 		
 		return "/user/userList";
 		
 	}
 	
+	@GetMapping(value="/userDetail")
+	public String detail(Model model, long userNo) {
+		
+		User user = userService.userDetail(userNo);
+		model.addAttribute("user", user);
+		
+		return "/user/userDetail";
+	}
+	
 	@GetMapping(value="/userForm")
 	public String form(Model model) {
 		
 		return "/user/userForm";
+	}
+	
+	@GetMapping(value="/userUpdateForm")
+	public String updateForm(Model model, long userNo) {
+		
+		User user = userService.userDetail(userNo);
+		model.addAttribute("user", user);
+		
+		return "/user/userUpdateForm";
 	}
 	
 	
@@ -43,4 +60,14 @@ public class UserController {
 		
 		return "redirect:/user/userList";
 	}
+	
+	@PostMapping(value="/userUpdate")
+	public String update(User newUser, Model model) {
+		
+		long userNo = newUser.getUserNo();
+		userService.update(newUser);
+		
+		return "redirect:/user/userDetail?userNo=" + userNo;
+	}
+	
 }

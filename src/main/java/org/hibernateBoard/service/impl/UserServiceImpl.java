@@ -26,8 +26,25 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public User userDetail(long userNo) {
+
+		User result = userRepository.findOne(userNo);
+				
+		return result;
+	}
+	
+	@Override
 	public void create(User user) {
 		
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public void update(User newUser) {
+
+		User user = userRepository.findOne(newUser.getUserNo());
+		user.update(newUser);
 		userRepository.save(user);
 		
 	}
