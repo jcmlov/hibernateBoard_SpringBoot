@@ -39,4 +39,12 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
+	@GetMapping(value="/logOutAction")
+	public String logOutAction(HttpSession session) {
+		
+		session.removeAttribute("userInfo");
+		
+		return "redirect:/";
+	}
+	
 }

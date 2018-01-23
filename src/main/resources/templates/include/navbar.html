@@ -1,8 +1,12 @@
 <script type="text/javascript">
   $(function(){
 	 
-	$("#loginMember").click(function(){
+	$("#logInMember").click(function(){
 		location.href="/login/loginForm";
+	});
+	
+	$("#logOutMember").click(function(){
+		location.href="/login/logOutAction";
 	});
   });
 </script>
@@ -22,9 +26,16 @@
 				<li>
 					<a href="/user/userList">회원목록</a>
 				</li>
+				{{#userInfo}}
 				<li>
-					<button type="button" class="btn btn-primary navbar-btn" id="loginMember">로그인</button>
+					<button type="button" class="btn btn-warning navbar-btn" id="logOutMember">로그아웃</button>
 				</li>
+				{{/userInfo}}
+				{{^userInfo}}
+				<li>
+					<button type="button" class="btn btn-primary navbar-btn" id="logInMember">로그인</button>
+				</li>
+				{{/userInfo}}
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
