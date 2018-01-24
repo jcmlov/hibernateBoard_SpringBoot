@@ -57,7 +57,9 @@
 				<input type="password" class="form-control" id="userPw" name="userPw" value="{{user.userPw}}" placeholder="비밀번호">
 			</div>
 			<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">취소</button>
-			<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">수정</button>
+			{{#userInfo}}
+				<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">수정</button>
+			{{/userInfo}}
 		</form>
 	</div>
 </body>

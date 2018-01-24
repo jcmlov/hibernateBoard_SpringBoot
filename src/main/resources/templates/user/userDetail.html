@@ -44,8 +44,11 @@
 				</tr>
 			</tbody>
 		</table>
+		
 		<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
-		<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
+		{{#userInfo}}
+			<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
+		{{/userInfo}}
 	</div>
 </body>
 </html>

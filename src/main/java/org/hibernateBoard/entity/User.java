@@ -16,11 +16,11 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long userNo;
 
-	@Column(nullable=false, length=20)
+	@Column(nullable=false, length=20, unique=true)
 	private String userId;
 	@Column(nullable=false, length=20)
 	private String userNm;
-	@Column(nullable=false, length=100)
+	@Column(nullable=false, length=100, unique=true)
 	private String userEmail;
 	@Column(nullable=false, length=500)
 	private String userPw;

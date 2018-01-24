@@ -2,6 +2,8 @@ package org.hibernateBoard.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernateBoard.entity.User;
 import org.hibernateBoard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,42 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping(value="/userList")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session) {
 		
-		List<User> userList = userService.userList();
-		model.addAttribute("userList", userList);
+		String result = "";
 		
-		return "/user/userList";
+		Object sessionInfo = session.getAttribute("userInfo");
+		
+		if(sessionInfo != null) {
+			List<User> userList = userService.userList();
+			model.addAttribute("userList", userList);
+			
+			result = "/user/userList";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 		
 	}
 	
 	@GetMapping(value="/userDetail")
-	public String detail(Model model, long userNo) {
+	public String detail(Model model, long userNo, HttpSession session) {
 		
-		User user = userService.userDetail(userNo);
-		model.addAttribute("user", user);
+		String result = "";
 		
-		return "/user/userDetail";
+		Object sessionInfo = session.getAttribute("userInfo");
+		
+		if(sessionInfo != null) {
+			User user = userService.userDetail(userNo);
+			model.addAttribute("user", user);
+			
+			result = "/user/userDetail";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 	}
 	
 	@GetMapping(value="/userForm")
@@ -44,12 +66,27 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/userUpdateForm")
-	public String updateForm(Model model, long userNo) {
+	public String updateForm(Model model, long userNo, HttpSession session) {
 		
-		User user = userService.userDetail(userNo);
-		model.addAttribute("user", user);
+		String result = "";
 		
-		return "/user/userUpdateForm";
+		Object sessionInfo = session.getAttribute("userInfo");
+		User userInfo = (User) sessionInfo;
+		
+		if(sessionInfo != null) {
+			if(userNo == userInfo.getUserNo()) {
+				User user = userService.userDetail(userInfo.getUserNo());
+				model.addAttribute("user", user);
+				
+				result = "/user/userUpdateForm";
+			} else {
+				result = "redirect:/";
+			}
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 	}
 	
 	
@@ -62,12 +99,28 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/userUpdate")
-	public String update(User newUser, Model model) {
+	public String update(User newUser, Model model, HttpSession session) {
 		
-		long userNo = newUser.getUserNo();
-		userService.update(newUser);
+		String result = "";
 		
-		return "redirect:/user/userDetail?userNo=" + userNo;
+		Object sessionInfo = session.getAttribute("userInfo");
+		User userInfo = (User) sessionInfo;
+		
+		if(sessionInfo != null) {
+			long userNo = newUser.getUserNo();
+			
+			if(userNo == userInfo.getUserNo()) {
+				userService.update(newUser);
+				
+				result = "redirect:/user/userDetail?userNo=" + userNo;
+			} else {
+				result = "redirect:/";
+			}
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 	}
 	
 }
