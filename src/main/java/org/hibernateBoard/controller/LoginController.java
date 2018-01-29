@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.User;
 import org.hibernateBoard.service.LoginService;
+import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +35,7 @@ public class LoginController {
 			return "redirect:/login/loginForm";
 		}
 		
-		session.setAttribute("userInfo", userInfo);
+		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, userInfo);
 		
 		return "redirect:/";
 	}
@@ -42,7 +43,7 @@ public class LoginController {
 	@GetMapping(value="/logOutAction")
 	public String logOutAction(HttpSession session) {
 		
-		session.removeAttribute("userInfo");
+		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
 		
 		return "redirect:/";
 	}

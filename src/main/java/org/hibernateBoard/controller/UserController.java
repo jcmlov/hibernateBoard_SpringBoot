@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.User;
 import org.hibernateBoard.service.UserService;
+import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,9 @@ public class UserController {
 		
 		String result = "";
 		
-		Object sessionInfo = session.getAttribute("userInfo");
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
 		
-		if(sessionInfo != null) {
+		if(userInfo != null) {
 			List<User> userList = userService.userList();
 			model.addAttribute("userList", userList);
 			
@@ -45,9 +46,9 @@ public class UserController {
 		
 		String result = "";
 		
-		Object sessionInfo = session.getAttribute("userInfo");
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
 		
-		if(sessionInfo != null) {
+		if(userInfo != null) {
 			User user = userService.userDetail(userNo);
 			model.addAttribute("user", user);
 			
@@ -70,10 +71,9 @@ public class UserController {
 		
 		String result = "";
 		
-		Object sessionInfo = session.getAttribute("userInfo");
-		User userInfo = (User) sessionInfo;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
 		
-		if(sessionInfo != null) {
+		if(userInfo != null) {
 			if(userNo == userInfo.getUserNo()) {
 				User user = userService.userDetail(userInfo.getUserNo());
 				model.addAttribute("user", user);
@@ -103,10 +103,9 @@ public class UserController {
 		
 		String result = "";
 		
-		Object sessionInfo = session.getAttribute("userInfo");
-		User userInfo = (User) sessionInfo;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
 		
-		if(sessionInfo != null) {
+		if(userInfo != null) {
 			long userNo = newUser.getUserNo();
 			
 			if(userNo == userInfo.getUserNo()) {
