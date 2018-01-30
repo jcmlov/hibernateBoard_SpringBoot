@@ -37,7 +37,7 @@ public class LoginController {
 		
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, userInfo);
 		
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	@GetMapping(value="/logOutAction")
