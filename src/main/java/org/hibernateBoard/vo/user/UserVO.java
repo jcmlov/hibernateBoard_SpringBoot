@@ -1,4 +1,4 @@
-package org.hibernateBoard.vo;
+package org.hibernateBoard.vo.user;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 

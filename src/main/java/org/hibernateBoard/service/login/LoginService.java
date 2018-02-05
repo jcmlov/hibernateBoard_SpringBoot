@@ -1,6 +1,6 @@
-package org.hibernateBoard.service;
+package org.hibernateBoard.service.login;
 
-import org.hibernateBoard.entity.User;
+import org.hibernateBoard.entity.user.User;
 
 public interface LoginService {
 

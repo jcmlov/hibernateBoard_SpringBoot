@@ -2,7 +2,7 @@ package org.hibernateBoard.util;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.User;
+import org.hibernateBoard.entity.user.User;
 
 public class HttpSessionUtils {
 

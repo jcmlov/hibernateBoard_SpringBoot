@@ -1,8 +1,8 @@
-package org.hibernateBoard.service;
+package org.hibernateBoard.service.user;
 
 import java.util.List;
 
-import org.hibernateBoard.entity.User;
+import org.hibernateBoard.entity.user.User;
 
 public interface UserService {
 	

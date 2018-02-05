@@ -1,4 +1,4 @@
-package org.hibernateBoard.controller;
+package org.hibernateBoard.controller.index;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

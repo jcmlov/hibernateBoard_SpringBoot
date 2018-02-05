@@ -1,9 +1,9 @@
-package org.hibernateBoard.controller;
+package org.hibernateBoard.controller.login;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.User;
-import org.hibernateBoard.service.LoginService;
+import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.service.login.LoginService;
 import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,8 +1,8 @@
-package org.hibernateBoard.service.impl;
+package org.hibernateBoard.service.login.Impl;
 
-import org.hibernateBoard.entity.User;
-import org.hibernateBoard.repository.UserRepository;
-import org.hibernateBoard.service.LoginService;
+import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.repository.user.UserRepository;
+import org.hibernateBoard.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

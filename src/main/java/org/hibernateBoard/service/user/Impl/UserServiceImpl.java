@@ -1,10 +1,10 @@
-package org.hibernateBoard.service.impl;
+package org.hibernateBoard.service.user.Impl;
 
 import java.util.List;
 
-import org.hibernateBoard.entity.User;
-import org.hibernateBoard.repository.UserRepository;
-import org.hibernateBoard.service.UserService;
+import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.repository.user.UserRepository;
+import org.hibernateBoard.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;

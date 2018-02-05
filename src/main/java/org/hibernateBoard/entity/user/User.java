@@ -1,4 +1,4 @@
-package org.hibernateBoard.entity;
+package org.hibernateBoard.entity.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

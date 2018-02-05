@@ -1,6 +1,6 @@
-package org.hibernateBoard.repository;
+package org.hibernateBoard.repository.user;
 
-import org.hibernateBoard.entity.User;
+import org.hibernateBoard.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long>{
