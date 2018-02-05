@@ -7,8 +7,8 @@
 <script type="text/javascript">
   $(function(){
 	 
-	$("#listBtn").on("click", function(){
-		location.href="/user/userList";
+	$("#cancelBtn").on("click", function(){
+		location.href="/";
 	});
 	
 	$("#submitBtn").on("click", function(){
@@ -56,7 +56,7 @@
 				<label for="userPw">비밀번호</label>
 				<input type="password" class="form-control" id="userPw" name="userPw" value="{{user.userPw}}" placeholder="비밀번호">
 			</div>
-			<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">취소</button>
+			<button type="button" class="btn btn-default clearfix pull-right" id="cancelBtn">취소</button>
 			{{#userInfo}}
 				<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">수정</button>
 			{{/userInfo}}

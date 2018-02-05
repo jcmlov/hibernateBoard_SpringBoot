@@ -111,7 +111,7 @@ public class UserController {
 			if(userNo == userInfo.getUserNo()) {
 				userService.update(newUser);
 				
-				result = "redirect:/user/userDetail?userNo=" + userNo;
+				result = "redirect:/";
 			} else {
 				result = "redirect:/";
 			}
