@@ -88,6 +88,12 @@
 		    <artifactId>jquery</artifactId>
 		    <version>3.2.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery-ui -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-ui</artifactId>
+		    <version>1.11.4</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
 		<dependency>
 		    <groupId>commons-lang</groupId>

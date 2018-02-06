@@ -61,9 +61,19 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/userForm")
-	public String form(Model model) {
+	public String form(Model model, HttpSession session) {
 		
-		return "/user/userForm";
+		String result = "";
+		
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			result = "/user/userForm";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 	}
 	
 	@GetMapping(value="/userUpdateForm")
