@@ -101,11 +101,20 @@ public class UserController {
 	
 	
 	@PostMapping(value="/userCreate")
-	public String create(User user, Model model) {
+	public String create(User user, Model model, HttpSession session) {
 		
-		userService.create(user);
+		String result = "";
 		
-		return "redirect:/user/userList";
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			userService.create(user);
+			result = "redirect:/user/userList";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
 	}
 	
 	@PostMapping(value="/userUpdate")
@@ -120,7 +129,6 @@ public class UserController {
 			
 			if(userNo == userInfo.getUserNo()) {
 				userService.update(newUser);
-				
 				result = "redirect:/";
 			} else {
 				result = "redirect:/";

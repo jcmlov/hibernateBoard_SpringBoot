@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	{{> include/header }}
+</head>
+
+<script type="text/javascript">
+  $(function(){
+	 
+	  $('#registBtn').click(function() {
+		 location.href="/board/boardForm"; 
+	  });
+  });
+  </script>
+<body>
+	{{> include/navbar }}
+	
+	<div class="container">
+		<form action="/board/boardList" method="post" id="listForm" name="listForm">
+			<table class="table table-hover">
+				<colgroup>
+					<col style="width:30%;"/>
+					<col style="width:30%;"/>
+					<col style="width:30%;"/>
+				</colgroup>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>제목</th>
+						<th>등록일시</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#boardList}}
+					<tr>
+						<td>
+							{{boardNo}}
+						</td>
+						<td>
+							<a href="/board/boardDetail?boardNo={{boardNo}}">{{boardTitle}}</a>
+						</td>
+						<td>
+							{{registDate}}
+						</td>
+					</tr>
+					{{/boardList}}
+				</tbody>
+			</table>
+			<button type="button" class="btn btn-primary clearfix pull-right" id="registBtn">글쓰기</button>
+		</form>
+	</div>
+</body>
+</html>
