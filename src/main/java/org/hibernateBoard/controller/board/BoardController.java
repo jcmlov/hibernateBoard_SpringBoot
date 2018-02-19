@@ -41,6 +41,25 @@ public class BoardController {
 		return result;
 	}
 	
+	@GetMapping(value="/boardDetail")
+	public String detail(long boardNo, Model model, HttpSession session) {
+		
+		String result = "";
+		
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			Board board = boardService.boardDetail(boardNo);
+			model.addAttribute("board", board);
+			
+			result = "/board/boardDetail";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
+	}
+	
 	@GetMapping(value="/boardForm")
 	public String form(Model model, HttpSession session) {
 		
@@ -50,6 +69,25 @@ public class BoardController {
 		
 		if(userInfo != null) {
 			result = "/board/boardForm";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
+	}
+	
+	@GetMapping(value="/boardUpdateForm")
+	public String updateForm(long boardNo, Model model, HttpSession session) {
+		
+		String result = "";
+		
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			Board board = boardService.boardDetail(boardNo);
+			model.addAttribute("board", board);
+			
+			result = "/board/boardUpdateForm";
 		} else {
 			result = "redirect:/login/loginForm";
 		}

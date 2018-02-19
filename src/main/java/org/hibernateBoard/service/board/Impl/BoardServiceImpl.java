@@ -3,6 +3,7 @@ package org.hibernateBoard.service.board.Impl;
 import java.util.List;
 
 import org.hibernateBoard.entity.board.Board;
+import org.hibernateBoard.entity.user.User;
 import org.hibernateBoard.repository.board.BoardRepository;
 import org.hibernateBoard.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		boardRepository.save(board);
 		
+	}
+
+	@Override
+	public Board boardDetail(long boardNo) {
+		
+		Board result = boardRepository.findByBoardNo(boardNo);
+		
+		return result;
 	}
 
 }

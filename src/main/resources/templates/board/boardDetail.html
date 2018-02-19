@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	{{> include/header }}
+</head>
+
+<script type="text/javascript">
+$(function(){
+
+	$("#submitBtn").on("click", function(){
+		if($("#boardTitle").val() == '') {
+			alert("제목을 입력하세요.");
+			return false;
+		}
+		if($("#boardContent").val() == '') {
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		
+		$("#boardForm").submit();
+	});
+	
+	$("#listBtn").on("click", function() {
+		location.href="/board/boardList"; 
+	});
+	
+	$("#updateBtn").on("click", function(){
+		var boardNo = $("#boardNo").val();
+		
+		location.href="/board/boardUpdateForm?boardNo=" + boardNo;
+	});
+	
+});
+</script>
+<body>
+	{{> include/navbar }}
+	
+	<div class="container">
+		<input type="hidden" id="boardNo" value="{{board.boardNo}}" />
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<th>No</th>
+					<td>{{board.boardNo}}</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>{{board.boardTitle}}</td>
+				</tr>
+				<tr>
+					<th>작성자 ID</th>
+					<td>{{board.registId}}</td>
+				</tr>
+				<tr>
+					<th colspan="2">내용</th>
+				</tr>
+				<tr>
+					<td colspan="2">{{board.boardTitle}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
+		{{#userInfo}}
+			<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
+		{{/userInfo}}
+	</div>
+</body>
+</html>
