@@ -1,5 +1,6 @@
 package org.hibernateBoard.entity.board;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernateBoard.entity.user.User;
 
 
 @Entity
@@ -28,13 +31,13 @@ public class Board {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private Date registDate = new Date();
+	private LocalDateTime registDate = LocalDateTime.now();
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date updateDate;
+	private LocalDateTime updateDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date deleteDate;
+	private LocalDateTime deleteDate;
 	
 	@Column(nullable=false, length=20)
 	private String registId;
@@ -72,27 +75,27 @@ public class Board {
 		this.boardContent = boardContent;
 	}
 
-	public Date getRegistDate() {
+	public LocalDateTime getRegistDate() {
 		return registDate;
 	}
 
-	public void setRegistDate(Date registDate) {
+	public void setRegistDate(LocalDateTime registDate) {
 		this.registDate = registDate;
 	}
 
-	public Date getUpdateDate() {
+	public LocalDateTime getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public Date getDeleteDate() {
+	public LocalDateTime getDeleteDate() {
 		return deleteDate;
 	}
 
-	public void setDeleteDate(Date deleteDate) {
+	public void setDeleteDate(LocalDateTime deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 
@@ -126,6 +129,17 @@ public class Board {
 
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+
+	public boolean isEqualRegistId(User userInfo) {
+
+		return this.registId.equals(userInfo.getUserId());
+	}
+	
+	public void update(Board newBoard, User userInfo) {
+		this.boardTitle = newBoard.getBoardTitle();
+		this.boardContent = newBoard.getBoardContent();
+		this.updateId = userInfo.getUserId();
 	}
 	
 }

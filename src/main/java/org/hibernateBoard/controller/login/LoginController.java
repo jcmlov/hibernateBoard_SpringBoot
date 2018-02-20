@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,7 +27,7 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/loginAction")
-	public String loginAction(HttpSession session, User user, Model model) {
+	public String loginAction(@PathVariable User user, Model model, HttpSession session) {
 		
 		User userInfo = loginService.findByUserIdAndUserPw(user.getUserId(), user.getUserPw());
 		

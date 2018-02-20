@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,7 +43,7 @@ public class BoardController {
 	}
 	
 	@GetMapping(value="/boardDetail")
-	public String detail(long boardNo, Model model, HttpSession session) {
+	public String detail(@PathVariable long boardNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -77,7 +78,7 @@ public class BoardController {
 	}
 	
 	@GetMapping(value="/boardUpdateForm")
-	public String updateForm(long boardNo, Model model, HttpSession session) {
+	public String updateForm(@PathVariable long boardNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -96,8 +97,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value="/boardRegist")
-	public String create(Board board, Model model, HttpSession session) {
-		
+	public String create(@PathVariable Board board, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -105,8 +105,34 @@ public class BoardController {
 		
 		if(userInfo != null) {
 			board.setRegistId(userInfo.getUserId());
-			board.setDeleteYn("Y");
+			board.setDeleteYn("N");
 			boardService.boardRegist(board);
+			result = "redirect:/board/boardList";
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
+	}
+	
+	@PostMapping(value="boardUpdate")
+	public String update(@PathVariable Board newBoard, Model model, HttpSession session) {
+		
+		String result = "";
+		
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			
+			Board board = boardService.boardDetail(newBoard.getBoardNo());
+			
+			if(!board.isEqualRegistId(userInfo)) {
+				model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
+				return "redirect:/board/boardList";
+			}
+			
+			board.update(newBoard, userInfo);
+			boardService.boardRegist(newBoard);
 			result = "redirect:/board/boardList";
 		} else {
 			result = "redirect:/login/loginForm";
