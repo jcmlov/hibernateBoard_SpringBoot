@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/userDetail")
-	public String detail(@PathVariable long userNo, Model model, HttpSession session) {
+	public String detail(long userNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -78,7 +78,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/userUpdateForm")
-	public String updateForm(@PathVariable long userNo, Model model, HttpSession session) {
+	public String updateForm(long userNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -102,7 +102,7 @@ public class UserController {
 	
 	
 	@PostMapping(value="/userCreate")
-	public String create(@PathVariable User user, Model model, HttpSession session) {
+	public String create(User user, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -119,7 +119,7 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/userUpdate")
-	public String update(@PathVariable User newUser, Model model, HttpSession session) {
+	public String update(User newUser, Model model, HttpSession session) {
 		
 		String result = "";
 		

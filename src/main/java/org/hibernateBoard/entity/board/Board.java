@@ -31,13 +31,13 @@ public class Board {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private LocalDateTime registDate = LocalDateTime.now();
+	private Date registDate = new Date();
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime updateDate;
+	private Date updateDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime deleteDate;
+	private Date deleteDate;
 	
 	@Column(nullable=false, length=20)
 	private String registId;
@@ -75,27 +75,27 @@ public class Board {
 		this.boardContent = boardContent;
 	}
 
-	public LocalDateTime getRegistDate() {
+	public Date getRegistDate() {
 		return registDate;
 	}
 
-	public void setRegistDate(LocalDateTime registDate) {
+	public void setRegistDate(Date registDate) {
 		this.registDate = registDate;
 	}
 
-	public LocalDateTime getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(LocalDateTime updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
-	public LocalDateTime getDeleteDate() {
+	public Date getDeleteDate() {
 		return deleteDate;
 	}
 
-	public void setDeleteDate(LocalDateTime deleteDate) {
+	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 

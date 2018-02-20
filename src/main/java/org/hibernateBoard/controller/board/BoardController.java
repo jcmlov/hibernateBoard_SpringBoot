@@ -43,7 +43,7 @@ public class BoardController {
 	}
 	
 	@GetMapping(value="/boardDetail")
-	public String detail(@PathVariable long boardNo, Model model, HttpSession session) {
+	public String detail(long boardNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -78,7 +78,7 @@ public class BoardController {
 	}
 	
 	@GetMapping(value="/boardUpdateForm")
-	public String updateForm(@PathVariable long boardNo, Model model, HttpSession session) {
+	public String updateForm(long boardNo, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -97,7 +97,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value="/boardRegist")
-	public String create(@PathVariable Board board, Model model, HttpSession session) {
+	public String create(Board board, Model model, HttpSession session) {
 		
 		String result = "";
 		
@@ -116,7 +116,7 @@ public class BoardController {
 	}
 	
 	@PostMapping(value="boardUpdate")
-	public String update(@PathVariable Board newBoard, Model model, HttpSession session) {
+	public String update(Board newBoard, Model model, HttpSession session) {
 		
 		String result = "";
 		

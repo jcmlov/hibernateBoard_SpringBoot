@@ -27,7 +27,7 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/loginAction")
-	public String loginAction(@PathVariable User user, Model model, HttpSession session) {
+	public String loginAction(User user, Model model, HttpSession session) {
 		
 		User userInfo = loginService.findByUserIdAndUserPw(user.getUserId(), user.getUserPw());
 		
