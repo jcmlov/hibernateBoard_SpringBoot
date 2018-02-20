@@ -31,6 +31,7 @@ $(function(){
 	
 	<div class="container">
 		<form action="/board/boardUpdate" method="post" id="boardForm" name="boardForm">
+			<input type="hidden" name="boardNo" value="{{board.boardNo}}"/>
 			<div class="form-group">
 				<label for="userId">제목</label>
 				<input type="text" class="form-control" id="boardTitle" name="boardTitle" value="{{board.boardTitle}}" placeholder="제목을 입력하세요">

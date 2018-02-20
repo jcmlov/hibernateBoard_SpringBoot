@@ -30,6 +30,12 @@ $(function(){
 		location.href="/board/boardUpdateForm?boardNo=" + boardNo;
 	});
 	
+	$("#deleteBtn").on("click", function() {
+		var boardNo = $("#boardNo").val();
+		
+		location.href="/board/boardDelete?boardNo=" + boardNo;
+	});
+	
 });
 </script>
 <body>
@@ -55,13 +61,14 @@ $(function(){
 					<th colspan="2">내용</th>
 				</tr>
 				<tr>
-					<td colspan="2">{{board.boardTitle}}</td>
+					<td colspan="2">{{board.boardContent}}</td>
 				</tr>
 			</tbody>
 		</table>
 		
 		<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
 		{{#userInfo}}
+			<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
 			<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
 		{{/userInfo}}
 	</div>

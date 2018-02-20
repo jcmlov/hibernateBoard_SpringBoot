@@ -1,6 +1,6 @@
 package org.hibernateBoard.entity.board;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -132,14 +132,53 @@ public class Board {
 	}
 
 	public boolean isEqualRegistId(User userInfo) {
-
 		return this.registId.equals(userInfo.getUserId());
+	}
+	
+	public String getFormattedRegistDate() {
+		if(registDate == null) {
+			return "";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String returnFormat = sdf.format(registDate);
+		
+		return returnFormat;
+	}
+	
+	public String getFormattedUpdateDate() {
+		if(updateDate == null) {
+			return "";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String returnFormat = sdf.format(updateDate);
+		
+		return returnFormat;
+	}
+	
+	public String getFormattedDeleteDate() {
+		if(deleteDate == null) {
+			return "";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String returnFormat = sdf.format(deleteDate);
+		
+		return returnFormat;
 	}
 	
 	public void update(Board newBoard, User userInfo) {
 		this.boardTitle = newBoard.getBoardTitle();
 		this.boardContent = newBoard.getBoardContent();
 		this.updateId = userInfo.getUserId();
+		this.updateDate = new Date();
+	}
+
+	public void delete(long boardNo, User userInfo) {
+		this.deleteId = userInfo.getUserId();
+		this.deleteDate = new Date();
+		this.deleteYn = "Y";
 	}
 	
 }

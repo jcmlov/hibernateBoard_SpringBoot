@@ -12,5 +12,9 @@ public interface BoardService {
 	public void boardRegist(Board board);
 	
 	public Board boardDetail(long boardNo);
+
+	public void boardUpdate(Board newBoard, User userInfo);
+
+	public void boardDelete(long boardNo, User userInfo);
 	
 }

@@ -131,8 +131,32 @@ public class BoardController {
 				return "redirect:/board/boardList";
 			}
 			
-			board.update(newBoard, userInfo);
-			boardService.boardRegist(newBoard);
+			boardService.boardUpdate(newBoard, userInfo);
+			result = "redirect:/board/boardDetail?boardNo=" + newBoard.getBoardNo();
+		} else {
+			result = "redirect:/login/loginForm";
+		}
+		
+		return result;
+	}
+	
+	@GetMapping(value="boardDelete")
+	public String delete(long boardNo, Model model, HttpSession session) {
+		
+		String result = "";
+		
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		
+		if(userInfo != null) {
+			
+			Board board = boardService.boardDetail(boardNo);
+			
+			if(!board.isEqualRegistId(userInfo)) {
+				model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
+				return "redirect:/board/boardList";
+			}
+			
+			boardService.boardDelete(boardNo, userInfo);
 			result = "redirect:/board/boardList";
 		} else {
 			result = "redirect:/login/loginForm";
