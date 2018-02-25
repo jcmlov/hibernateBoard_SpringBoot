@@ -15,39 +15,68 @@
 <body>
 	{{> include/newNavbar }}
 	
-	<div class="container">
-		<form action="/board/boardList" method="post" id="listForm" name="listForm">
-			<table class="table table-hover">
-				<colgroup>
-					<col style="width:30%;"/>
-					<col style="width:30%;"/>
-					<col style="width:30%;"/>
-				</colgroup>
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>제목</th>
-						<th>등록일시</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#boardList}}
-					<tr>
-						<td>
-							{{boardNo}}
-						</td>
-						<td>
-							<a href="/board/boardDetail?boardNo={{boardNo}}">{{boardTitle}}</a>
-						</td>
-						<td>
-							{{formattedRegistDate}}
-						</td>
-					</tr>
-					{{/boardList}}
-				</tbody>
-			</table>
-			<button type="button" class="btn btn-primary clearfix pull-right" id="registBtn">글쓰기</button>
-		</form>
+	<div class="sidebar-section margin-b-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h3></h3>
+					{{> include/sidebar }}
+				</div>
+				<div class="col-md-9">
+					<h3></h3>
+					<div class="content-box">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal marginT20" action="/board/boardList" method="post" id="listForm" name="listForm">
+									<fieldset>
+										<!-- Form Name -->
+										<legend>게시판 목록</legend>
+										<table class="table table-hover">
+											<colgroup>
+												<col style="width:25%;"/>
+												<col style="width:25%;"/>
+												<col style="width:25%;"/>
+												<col style="width:25%;"/>
+											</colgroup>
+											<thead>
+												<tr>
+													<th>No</th>
+													<th>제목</th>
+													<th>작성자</th>
+													<th>등록일시</th>
+												</tr>
+											</thead>
+											<tbody>
+												{{#boardList}}
+												<tr>
+													<td>
+														{{boardNo}}
+													</td>
+													<td>
+														<a href="/board/boardDetail?boardNo={{boardNo}}">{{boardTitle}}</a>
+													</td>
+													<td>
+														{{registId}}
+													</td>
+													<td>
+														{{formattedRegistDate}}
+													</td>
+												</tr>
+												{{/boardList}}
+											</tbody>
+										</table>
+										<button type="button" class="btn btn-primary clearfix pull-right" id="registBtn">글쓰기</button>
+									</fieldset>
+								</form>
+							</div>
+							<div class="col-md-12">
+								{{> include/pageNavbar }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -41,36 +41,51 @@ $(function(){
 <body>
 	{{> include/newNavbar }}
 	
-	<div class="container">
-		<input type="hidden" id="boardNo" value="{{board.boardNo}}" />
-		<table class="table table-bordered">
-			<tbody>
-				<tr>
-					<th>No</th>
-					<td>{{board.boardNo}}</td>
-				</tr>
-				<tr>
-					<th>제목</th>
-					<td>{{board.boardTitle}}</td>
-				</tr>
-				<tr>
-					<th>작성자 ID</th>
-					<td>{{board.registId}}</td>
-				</tr>
-				<tr>
-					<th colspan="2">내용</th>
-				</tr>
-				<tr>
-					<td colspan="2">{{board.boardContent}}</td>
-				</tr>
-			</tbody>
-		</table>
-		
-		<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
-		{{#userInfo}}
-			<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
-			<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
-		{{/userInfo}}
+	<div class="sidebar-section margin-b-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h3></h3>
+					
+					{{> include/sidebar }}
+					
+				</div>
+				<div class="col-md-9">
+					<h3></h3>
+					<div class="content-box">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal marginT20" action="/board/boardUpdate" method="post" id="boardForm" name="boardForm">
+									<input type="hidden" id="boardNo" value="{{board.boardNo}}" />
+									<fieldset>
+										<!-- Form Name -->
+										<legend>게시판 상세</legend>
+										<div class="content-box">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="sec-title">
+														<h2>{{board.boardNo}}. {{board.boardTitle}} / {{board.registId}}</h2>
+														<hr/>
+														<p>{{board.boardContent}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12" id="buttonDiv">
+											{{#userInfo}}
+												<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
+												<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
+											{{/userInfo}}
+											<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

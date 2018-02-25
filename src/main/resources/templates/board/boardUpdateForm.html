@@ -29,23 +29,50 @@ $(function(){
 <body>
 	{{> include/newNavbar }}
 	
-	<div class="container">
-		<form action="/board/boardUpdate" method="post" id="boardForm" name="boardForm">
-			<input type="hidden" name="boardNo" value="{{board.boardNo}}"/>
-			<div class="form-group">
-				<label for="userId">제목</label>
-				<input type="text" class="form-control" id="boardTitle" name="boardTitle" value="{{board.boardTitle}}" placeholder="제목을 입력하세요">
+	<div class="sidebar-section margin-b-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h3></h3>
+					
+					{{> include/sidebar }}
+					
+				</div>
+				<div class="col-md-9">
+					<h3></h3>
+					<div class="content-box">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal marginT20" action="/board/boardUpdate" method="post" id="boardForm" name="boardForm">
+									<input type="hidden" name="boardNo" value="{{board.boardNo}}"/>
+									<fieldset>
+										<!-- Form Name -->
+										<legend>게시판 수정</legend>
+										<div class="form-group">
+											<div class="col-md-12">
+												<input type="text" class="form-control" id="boardTitle" name="boardTitle" value="{{board.boardTitle}}" placeholder="제목을 입력하세요">
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-12">
+												<textarea class="form-control" id="boardContent" name="boardContent" placeholder="내용을 입력하세요" rows="5">{{board.boardContent}}</textarea>
+											</div>
+										</div>
+										<!-- Button -->
+										<div class="col-md-12">
+											{{#userInfo}}
+												<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">저장</button>
+											{{/userInfo}}
+											<button type="button" class="btn btn-danger clearfix pull-right" id="listBtn">취소</button>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="userId">내용</label>
-				<textarea class="form-control" id="boardContent" name="boardContent" placeholder="내용을 입력하세요" rows="5">{{board.boardContent}}</textarea>
-			</div>
-			<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">취소</button>
-			{{#userInfo}}
-				<!-- 수정 해야 함 -->
-				<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">저장</button>
-			{{/userInfo}}
-		</form>
+		</div>
 	</div>
 </body>
 </html>

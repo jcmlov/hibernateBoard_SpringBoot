@@ -210,6 +210,14 @@ background-color: #e93402     ;
   color: #ffffff;
 }
 
+.pageNavbar {
+	align-content: center;
+}
+
+#buttonDiv {
+	margin-top: 10px;
+}
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #dfdfdf;
