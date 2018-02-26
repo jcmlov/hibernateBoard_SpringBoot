@@ -36,6 +36,10 @@ $(function(){
 		location.href="/board/boardDelete?boardNo=" + boardNo;
 	});
 	
+	$("#commentRegistBtn").on("click", function() {
+		$("#commentForm").submit();
+	});
+	
 });
 </script>
 <body>
@@ -79,6 +83,20 @@ $(function(){
 											<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
 										</div>
 									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<div class="content-box">
+						<div class="row">
+							<div class="col-md-12">
+								<form class="form-horizontal marginT20" action="/boardComment/boardCommentRegist" method="post" id="commentForm">
+									<input type="hidden" name="boardNo" value="{{board.boardNo}}" />
+									<textarea class="form-control" id="comment" name="comment" placeholder="comment" rows="3"></textarea>
+									<div class="col-md-12" id="buttonDiv">
+										<button type="button" class="btn btn-success pull-right" id="commentRegistBtn">작성</button>
+									</div>
 								</form>
 							</div>
 						</div>

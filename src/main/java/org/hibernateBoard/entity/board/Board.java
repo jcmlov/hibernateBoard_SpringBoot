@@ -2,12 +2,16 @@ package org.hibernateBoard.entity.board;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +30,8 @@ public class Board {
 	@Column(nullable=false, length=20)
 	private String boardTitle;
 	
-	@Column(nullable=false, length=4000)
+	@Column(nullable=false)
+	@Lob
 	private String boardContent;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -51,6 +56,10 @@ public class Board {
 	@Column(nullable=false, length=1)
 	private String deleteYn;
 
+	@OneToMany(mappedBy="board")
+	@OrderBy("registDate desc")
+	private List<BoardComment> comments;
+	
 	public long getBoardNo() {
 		return boardNo;
 	}

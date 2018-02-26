@@ -23,7 +23,6 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> boardList() {
 
 		List<Board> list = boardRepository.findAll(new Sort(new Order(Direction.DESC, "registDate")));
-		
 		List<Board> resultList = new ArrayList<Board>();
 		
 		for(Board board : list) {
