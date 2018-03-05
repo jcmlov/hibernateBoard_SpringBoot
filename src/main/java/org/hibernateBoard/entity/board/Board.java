@@ -60,6 +60,8 @@ public class Board {
 	@OrderBy("registDate desc")
 	private List<BoardComment> comments;
 	
+	private int commentsLength;
+	
 	public long getBoardNo() {
 		return boardNo;
 	}
@@ -188,6 +190,13 @@ public class Board {
 		this.deleteId = userInfo.getUserId();
 		this.deleteDate = new Date();
 		this.deleteYn = "Y";
+	}
+	
+	public int commentsSize() {
+		
+		int totLength = this.comments.size();
+		
+		return totLength;
 	}
 	
 }

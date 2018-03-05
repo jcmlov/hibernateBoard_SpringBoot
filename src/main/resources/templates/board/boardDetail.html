@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+<link href="/css/board/boardComment.css" rel="stylesheet">
 <head>
 	{{> include/header }}
 </head>
@@ -99,6 +100,30 @@ $(function(){
 									</div>
 								</form>
 							</div>
+						</div>
+						<hr/>
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>총 {{board.commentsSize}}개</h4>
+							</div>
+						</div>
+						<div class="row comment">
+						{{#board.comments}}
+							<div class="col-sm-1">
+								<div class="thumbnail">
+									<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+								</div>
+							</div>
+							<div class="col-sm-11">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<strong>{{register.userId}}</strong>
+										<span class="text-muted">{{formattedRegistDate}}</span>
+									</div>
+									<div class="panel-body">{{comment}}</div>
+								</div>
+							</div>
+						{{/board.comments}}
 						</div>
 					</div>
 				</div>

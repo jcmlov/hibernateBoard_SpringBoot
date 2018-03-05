@@ -1,6 +1,6 @@
 package org.hibernateBoard.entity.board;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -48,6 +48,17 @@ public class BoardComment {
 		this.register = register;
 		this.comment = comment;
 		this.board = board;
+	}
+	
+	public String getFormattedRegistDate() {
+		if(registDate == null) {
+			return "";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String returnFormat = sdf.format(registDate);
+		
+		return returnFormat;
 	}
 
 	@Override
