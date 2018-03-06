@@ -89,6 +89,46 @@ public class BoardComment {
 				+ ", registDate=" + registDate + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
 				+ ", toString()=" + super.toString() + "]";
 	}
+
+	public long getCommentNo() {
+		return commentNo;
+	}
+
+	public void setCommentNo(long commentNo) {
+		this.commentNo = commentNo;
+	}
+
+	public User getRegister() {
+		return register;
+	}
+
+	public void setRegister(User register) {
+		this.register = register;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Date getRegistDate() {
+		return registDate;
+	}
+
+	public void setRegistDate(Date registDate) {
+		this.registDate = registDate;
+	}
 	
 	
 	

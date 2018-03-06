@@ -19,4 +19,12 @@ public class BoardCommetServiceImpl implements BoardCommetService {
 		
 	}
 
+	@Override
+	public BoardComment commentRegistAjax(BoardComment boardComment) {
+
+		BoardComment result = boardCommentRepository.save(boardComment);
+		
+		return result;
+	}
+
 }

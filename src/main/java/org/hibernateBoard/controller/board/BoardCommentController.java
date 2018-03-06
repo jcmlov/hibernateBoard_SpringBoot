@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/boardComment")
@@ -39,5 +40,20 @@ public class BoardCommentController {
 		
 		return "redirect:/board/boardDetail?boardNo=" + boardNo;
 	}
-
+	
+	@PostMapping(value="/ajax/boardCommentRegist")
+	@ResponseBody
+	public BoardComment createAjax(Model model, HttpSession session, long boardNo, String comment) {
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return null;
+		}
+		
+		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		
+		Board board = boardService.boardDetail(boardNo);
+		BoardComment boardComment = new BoardComment(loginUser, comment, board);
+		
+		return boardCommetService.commentRegistAjax(boardComment);
+	}
+	
 }
