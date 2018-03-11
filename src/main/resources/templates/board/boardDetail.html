@@ -77,10 +77,10 @@ $(function(){
 											</div>
 										</div>
 										<div class="col-md-12" id="buttonDiv">
-											{{#userInfo}}
+											{{#isEqualRegistId}}
 												<button type="button" class="btn btn-danger" id="deleteBtn">삭제</button>
 												<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
-											{{/userInfo}}
+											{{/isEqualRegistId}}
 											<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
 										</div>
 									</fieldset>
@@ -104,7 +104,7 @@ $(function(){
 						<hr/>
 						<div class="row">
 							<div class="col-sm-12">
-								<h4>총 {{board.commentsSize}}개</h4>
+								<h4>총 <span id="totComments">{{board.commentsSize}}</span>개</h4>
 							</div>
 						</div>
 						<div class="row comment">

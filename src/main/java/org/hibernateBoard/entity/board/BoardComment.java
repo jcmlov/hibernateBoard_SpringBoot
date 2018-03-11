@@ -130,6 +130,4 @@ public class BoardComment {
 		this.registDate = registDate;
 	}
 	
-	
-	
 }

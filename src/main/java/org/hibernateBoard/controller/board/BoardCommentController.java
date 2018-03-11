@@ -27,6 +27,7 @@ public class BoardCommentController {
 	
 	@PostMapping(value="/boardCommentRegist")
 	public String create(Model model, HttpSession session, long boardNo, String comment) {
+		
 		if(!HttpSessionUtils.isLoginUser(session)) {
 			return "/login/loginForm";
 		}
@@ -44,6 +45,7 @@ public class BoardCommentController {
 	@PostMapping(value="/ajax/boardCommentRegist")
 	@ResponseBody
 	public BoardComment createAjax(Model model, HttpSession session, long boardNo, String comment) {
+		
 		if(!HttpSessionUtils.isLoginUser(session)) {
 			return null;
 		}

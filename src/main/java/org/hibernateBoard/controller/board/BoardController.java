@@ -26,143 +26,113 @@ public class BoardController {
 	@GetMapping(value="/boardList")
 	public String list(Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			List<Board> boardList = boardService.boardList();
-			model.addAttribute("boardList", boardList);
-			
-			result = "/board/boardList";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		List<Board> boardList = boardService.boardList();
+		model.addAttribute("boardList", boardList);
+		
+		return "/board/boardList";
 	}
 	
 	@GetMapping(value="/boardDetail")
 	public String detail(long boardNo, Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			Board board = boardService.boardDetail(boardNo);
-			model.addAttribute("board", board);
-			
-			result = "/board/boardDetail";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Board board = boardService.boardDetail(boardNo);
+		boolean isEqualRegistId = board.isEqualRegistId(userInfo);
+		
+		model.addAttribute("board", board);
+		model.addAttribute("isEqualRegistId", isEqualRegistId);
+		
+		return "/board/boardDetail";
 	}
 	
 	@GetMapping(value="/boardForm")
 	public String form(Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			result = "/board/boardForm";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		return "/board/boardForm";
 	}
 	
 	@GetMapping(value="/boardUpdateForm")
 	public String updateForm(long boardNo, Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			Board board = boardService.boardDetail(boardNo);
-			model.addAttribute("board", board);
-			
-			result = "/board/boardUpdateForm";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Board board = boardService.boardDetail(boardNo);
+		boolean isEqualRegistId = board.isEqualRegistId(userInfo);
+		
+		model.addAttribute("board", board);
+		model.addAttribute("isEqualRegistId", isEqualRegistId);
+		
+		return "/board/boardUpdateForm";
 	}
 	
 	@PostMapping(value="/boardRegist")
 	public String create(Board board, Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			board.setRegistId(userInfo.getUserId());
-			board.setDeleteYn("N");
-			boardService.boardRegist(board);
-			result = "redirect:/board/boardList";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		board.setRegistId(userInfo.getUserId());
+		board.setDeleteYn("N");
+		boardService.boardRegist(board);
+		
+		return "redirect:/board/boardList";
 	}
 	
 	@PostMapping(value="boardUpdate")
 	public String update(Board newBoard, Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			
-			Board board = boardService.boardDetail(newBoard.getBoardNo());
-			
-			if(!board.isEqualRegistId(userInfo)) {
-				model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
-				return "redirect:/board/boardList";
-			}
-			
-			boardService.boardUpdate(newBoard, userInfo);
-			result = "redirect:/board/boardDetail?boardNo=" + newBoard.getBoardNo();
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Board board = boardService.boardDetail(newBoard.getBoardNo());
+		
+		if(!board.isEqualRegistId(userInfo)) {
+			model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
+			return "redirect:/board/boardList";
+		}
+		
+		boardService.boardUpdate(newBoard, userInfo);
+		
+		return "redirect:/board/boardDetail?boardNo=" + newBoard.getBoardNo();
 	}
 	
 	@GetMapping(value="boardDelete")
 	public String delete(long boardNo, Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			
-			Board board = boardService.boardDetail(boardNo);
-			
-			if(!board.isEqualRegistId(userInfo)) {
-				model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
-				return "redirect:/board/boardList";
-			}
-			
-			boardService.boardDelete(boardNo, userInfo);
-			result = "redirect:/board/boardList";
-		} else {
-			result = "redirect:/login/loginForm";
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return "redirect:/login/loginForm";
 		}
 		
-		return result;
+		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Board board = boardService.boardDetail(boardNo);
+		
+		if(!board.isEqualRegistId(userInfo)) {
+			model.addAttribute("message", "작성자가 로그인한 사용자가 아닙니다.");
+			return "redirect:/board/boardList";
+		}
+		
+		boardService.boardDelete(boardNo, userInfo);
+		
+		return "redirect:/board/boardList";
 	}
 	
 }
