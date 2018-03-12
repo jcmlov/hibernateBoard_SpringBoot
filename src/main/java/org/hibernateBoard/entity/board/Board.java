@@ -60,8 +60,6 @@ public class Board {
 	@OrderBy("registDate desc")
 	private List<BoardComment> comments;
 	
-	private int commentsLength;
-	
 	public long getBoardNo() {
 		return boardNo;
 	}

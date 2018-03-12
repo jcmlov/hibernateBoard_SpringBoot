@@ -104,7 +104,7 @@ form-control::-webkit-input-placeholder { color: #696969; }
 .site-btn:hover{background:#C9223D ;border:transparent;}
 .site-btn2{padding:12px 25px 12px 25px;border-radius:2px;background:#05681e;border-color:transparent;font-size:14px;}
 .site-btn2:hover{background:rgb(128, 197, 71); ;border:transparent;}
-
+.btn-xs {margin-right:4px;}
 
 /*************** Generic CSS ***************/
 .margin-b-70 {margin-top:120px;margin-bottom:200px;}

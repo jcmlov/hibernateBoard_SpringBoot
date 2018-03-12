@@ -14,7 +14,8 @@ function addComment(e) {
 		dataType: "json",
 		data: queryString,
 		error: resultError,
-		success: resultSuccess});
+		success: resultSuccess
+	});
 }
 
 function resultSuccess(data) {
@@ -31,7 +32,13 @@ function resultSuccess(data) {
 	html += 	'<div class="panel panel-default">';
 	html += 		'<div class="panel-heading">';
 	html += 			'<strong>' + data.register.userId + '</strong>';
-	html += 			'<span class="text-muted">' + data.formattedRegistDate + '</span>';
+	html += 			'<i class="glyphicon glyphicon-time"></i><span class="text-muted">' + data.formattedRegistDate + '</span>';
+	html += 			'<button type="button" class="btn btn-danger btn-xs clearfix pull-right" id="deleteCommentBtn">';
+	html += 				'<span class="glyphicon glyphicon-trash"></span>';
+	html += 			'</button>';
+	html += 			'<button type="button" class="btn btn-primary btn-xs clearfix pull-right" id="updateCommentBtn">';
+	html += 				'<span class="glyphicon glyphicon-pencil"></span>';
+	html += 			'</button>';
 	html += 		'</div>';
 	html += 	'<div class="panel-body">' + data.comment + '</div>';
 	html += '	</div>';
