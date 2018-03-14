@@ -8,4 +8,6 @@ public interface BoardCommetService {
 	
 	public BoardComment commentRegistAjax(BoardComment boardComment);
 
+	public BoardComment boardCommentDetail(long commentNo);
+
 }

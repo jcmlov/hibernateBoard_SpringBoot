@@ -27,4 +27,12 @@ public class BoardCommetServiceImpl implements BoardCommetService {
 		return result;
 	}
 
+	@Override
+	public BoardComment boardCommentDetail(long commentNo) {
+
+		BoardComment result = boardCommentRepository.findOne(commentNo);
+				
+		return result;
+	}
+
 }

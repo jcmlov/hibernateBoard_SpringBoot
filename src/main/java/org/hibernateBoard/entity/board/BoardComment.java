@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernateBoard.entity.user.User;
 
@@ -41,6 +42,9 @@ public class BoardComment {
 	@Column(nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date registDate = new Date();
 	
+	@Transient
+	private boolean equalUserId;
+	
 	public long getCommentNo() {
 		return commentNo;
 	}
@@ -55,14 +59,6 @@ public class BoardComment {
 
 	public void setRegister(User register) {
 		this.register = register;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
 	}
 
 	public String getComment() {
@@ -81,6 +77,14 @@ public class BoardComment {
 		this.registDate = registDate;
 	}
 	
+	public boolean getEqualUserId() {
+		return equalUserId;
+	}
+
+	public void setEqualUserId(boolean equalUserId) {
+		this.equalUserId = equalUserId;
+	}
+
 	public BoardComment() {
 	}
 	
@@ -88,6 +92,14 @@ public class BoardComment {
 		this.register = register;
 		this.comment = comment;
 		this.board = board;
+		this.isEqualRegistId(register);
+	}
+	
+	public boolean isEqualRegistId(User userInfo) {
+		
+		equalUserId = userInfo.getUserId().equals(register.getUserId());
+		
+		return equalUserId;
 	}
 	
 	public String getFormattedRegistDate() {

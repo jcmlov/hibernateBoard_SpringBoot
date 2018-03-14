@@ -140,6 +140,10 @@ public class Board {
 		this.deleteYn = deleteYn;
 	}
 
+	public List<BoardComment> getComments() {
+		return comments;
+	}
+
 	public boolean isEqualRegistId(User userInfo) {
 		return this.registId.equals(userInfo.getUserId());
 	}

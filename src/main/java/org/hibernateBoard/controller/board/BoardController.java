@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.board.Board;
+import org.hibernateBoard.entity.board.BoardComment;
 import org.hibernateBoard.entity.user.User;
 import org.hibernateBoard.service.board.BoardService;
 import org.hibernateBoard.util.HttpSessionUtils;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -46,6 +46,10 @@ public class BoardController {
 		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
 		Board board = boardService.boardDetail(boardNo);
 		boolean isEqualRegistId = board.isEqualRegistId(userInfo);
+		
+		for(BoardComment comment : board.getComments()) {
+			comment.isEqualRegistId(userInfo);
+		}
 		
 		model.addAttribute("board", board);
 		model.addAttribute("isEqualRegistId", isEqualRegistId);

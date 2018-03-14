@@ -11,6 +11,7 @@ import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +57,19 @@ public class BoardCommentController {
 		BoardComment boardComment = new BoardComment(loginUser, comment, board);
 		
 		return boardCommetService.commentRegistAjax(boardComment);
+	}
+	
+	@GetMapping(value="/ajax/boardCommentUpdateForm")
+	@ResponseBody
+	public BoardComment updateFormAjax(Model model, HttpSession session, long commentNo) {
+		
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return null;
+		}
+		
+		BoardComment boardComment = boardCommetService.boardCommentDetail(commentNo);
+		
+		return boardComment;
 	}
 	
 }

@@ -2,6 +2,7 @@ $(function() {
 	$("#commentRegistBtn").click(addComment);
 });
 
+// comment 등록
 function addComment(e) {
 	
 	e.preventDefault();
@@ -9,16 +10,42 @@ function addComment(e) {
 	var queryString = $("#commentForm").serialize();
 	
 	$.ajax({
-		type: "post",
+		type: "POST",
 		url: "/boardComment/ajax/boardCommentRegist",
 		dataType: "json",
 		data: queryString,
-		error: resultError,
-		success: resultSuccess
+		error: registError,
+		success: registSuccess
 	});
 }
 
-function resultSuccess(data) {
+// comment 업데이트 폼
+function forUpdateComment(commentNo, e) {
+
+	e.preventDefault();
+
+	$.ajax({
+		type: "GET",
+		url: "/boardComment/ajax/boardCommentUpdateForm",
+		dataType: "json",
+		data: {
+			commentNo : commentNo
+		},
+		error: forUpdateError,
+		success: forUpdateSuccess
+	});
+	
+}
+
+// comment 삭제
+function deleteComment(commentNo, e) {
+
+	e.preventDefault();
+	
+}
+
+// comment 등록 success
+function registSuccess(data) {
 
 	var totComments = Number($("#totComments").text()) + 1;
 	var html = '';
@@ -49,6 +76,32 @@ function resultSuccess(data) {
 	
 }
 
-function resultError() {
+// comment 등록 error
+function registError() {
+	
+}
+
+//comment 업데이트폼 success
+function forUpdateSuccess(data) {
+	
+	console.log(data);
+	var boardNo = $("#boardNo").val();
+	$("#comment_" + data.commentNo).empty();
+	
+	/*
+	var html = '';
+	html += '<form action="/boardComment/boardCommentUpdate" method="post" id="commentUpdateForm">';
+	html += 	'<input type="hidden" name="boardNo" value="' + boardNo + '" />';
+	html += 	'<textarea class="form-control" id="comment" name="comment" placeholder="comment" rows="3"></textarea>';
+	html += 	'<div class="col-md-12" id="buttonDiv">';
+	html += 		'<button type="button" class="btn btn-success pull-right" id="commentUpdateBtn">작성</button>';
+	html += 	'</div>
+	html += '</form>';
+		
+	$("#comment_" + data.commentNo).append(html);
+	*/
+}
+
+function forUpdateError() {
 	
 }
