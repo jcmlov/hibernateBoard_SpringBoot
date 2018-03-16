@@ -1,5 +1,17 @@
 $(function() {
 	$("#commentRegistBtn").click(addComment);
+	
+	$(document).on("click", "#commentCancelBtn", function() {
+		var commentVal = $(this).parent().parent().find("#comment").val();
+		var commentDiv = $(this).parent().parent().parent().empty();
+		
+		commentDiv.html(commentVal);
+	});
+	
+	$(document).on("click", "#commentUpdateBtn", function() {
+		
+	});
+	
 });
 
 // comment 등록
@@ -46,32 +58,13 @@ function deleteComment(commentNo, e) {
 
 // comment 등록 success
 function registSuccess(data) {
-
+	
+	$("#comment").val('');
 	var totComments = Number($("#totComments").text()) + 1;
-	var html = '';
 	
-	html += '<div class="col-sm-1">';
-	html += 	'<div class="thumbnail">';
-	html += 		'<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">';
-	html += 	'</div>';
-	html += '</div>';
-	html += '<div class="col-sm-11">';
-	html += 	'<div class="panel panel-default">';
-	html += 		'<div class="panel-heading">';
-	html += 			'<strong>' + data.register.userId + '</strong>';
-	html += 			'<i class="glyphicon glyphicon-time"></i><span class="text-muted">' + data.formattedRegistDate + '</span>';
-	html += 			'<button type="button" class="btn btn-danger btn-xs clearfix pull-right" id="deleteCommentBtn">';
-	html += 				'<span class="glyphicon glyphicon-trash"></span>';
-	html += 			'</button>';
-	html += 			'<button type="button" class="btn btn-primary btn-xs clearfix pull-right" id="updateCommentBtn">';
-	html += 				'<span class="glyphicon glyphicon-pencil"></span>';
-	html += 			'</button>';
-	html += 		'</div>';
-	html += 	'<div class="panel-body">' + data.comment + '</div>';
-	html += '	</div>';
-	html += '</div>';
+    var dataObj = {"userId" : data.register.userId, "date" : data.formattedRegistDate, "commentNo" : data.commentNo, "comment" : data.comment};
 	
-	$(".comment").prepend(html);
+	$(".comment").prepend(commentHtml(dataObj));
 	$("#totComments").text(totComments);
 	
 }
@@ -84,24 +77,50 @@ function registError() {
 //comment 업데이트폼 success
 function forUpdateSuccess(data) {
 	
-	console.log(data);
 	var boardNo = $("#boardNo").val();
 	$("#comment_" + data.commentNo).empty();
 	
-	/*
 	var html = '';
 	html += '<form action="/boardComment/boardCommentUpdate" method="post" id="commentUpdateForm">';
 	html += 	'<input type="hidden" name="boardNo" value="' + boardNo + '" />';
-	html += 	'<textarea class="form-control" id="comment" name="comment" placeholder="comment" rows="3"></textarea>';
+	html += 	'<textarea class="form-control" id="comment" name="comment" placeholder="comment" rows="3">' + data.comment + '</textarea>';
 	html += 	'<div class="col-md-12" id="buttonDiv">';
 	html += 		'<button type="button" class="btn btn-success pull-right" id="commentUpdateBtn">작성</button>';
-	html += 	'</div>
+	html += 		'<button type="button" class="btn btn-danger pull-right" id="commentCancelBtn">취소</button>';
+	html += 	'</div>';
 	html += '</form>';
 		
 	$("#comment_" + data.commentNo).append(html);
-	*/
 }
 
 function forUpdateError() {
 	
+}
+
+function commentHtml(dataObj) {
+	
+	var result = '';
+	
+	result += '<div class="col-sm-1">';
+	result += 	'<div class="thumbnail">';
+	result += 		'<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">';
+	result += 	'</div>';
+	result += '</div>';
+	result += '<div class="col-sm-11">';
+	result += 	'<div class="panel panel-default">';
+	result += 		'<div class="panel-heading">';
+	result += 			'<strong>' + dataObj.userId + '</strong>';
+	result += 			'<i class="glyphicon glyphicon-time"></i><span class="text-muted">' + dataObj.date + '</span>';
+	result += 			'<button type="button" class="btn btn-danger btn-xs clearfix pull-right" id="deleteCommentBtn" onClick="deleteComment(' + dataObj.commentNo + ', event)">';
+	result += 				'<span class="glyphicon glyphicon-trash"></span>';
+	result += 			'</button>';
+	result += 			'<button type="button" class="btn btn-primary btn-xs clearfix pull-right" id="updateCommentBtn" onClick="forUpdateComment(' + dataObj.commentNo + ', event)">';
+	result += 				'<span class="glyphicon glyphicon-pencil"></span>';
+	result += 			'</button>';
+	result += 		'</div>';
+	result += 		'<div class="panel-body" id="comment_' + dataObj.commentNo + '">' + dataObj.comment + '</div>';
+	result += 	'</div>';
+	result += '</div>';
+	
+	return result;
 }
