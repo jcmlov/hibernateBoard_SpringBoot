@@ -1,6 +1,7 @@
 package org.hibernateBoard.service.board.Impl;
 
 import org.hibernateBoard.entity.board.BoardComment;
+import org.hibernateBoard.entity.user.User;
 import org.hibernateBoard.repository.board.BoardCommentRepository;
 import org.hibernateBoard.service.board.BoardCommetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,24 @@ public class BoardCommetServiceImpl implements BoardCommetService {
 
 		BoardComment result = boardCommentRepository.findOne(commentNo);
 				
+		return result;
+	}
+
+	@Override
+	public BoardComment commentUpdateAjax(long commentNo, String comment, User loginUser) {
+
+		BoardComment boardComment = boardCommentRepository.findOne(commentNo);
+		boardComment.update(comment, loginUser);
+		
+		return boardCommentRepository.save(boardComment);
+	}
+
+	@Override
+	public BoardComment commentDeleteAjax(long commentNo, User loginUser) {
+		
+		boardCommentRepository.delete(commentNo);
+		BoardComment result = boardCommentRepository.findOne(commentNo);
+		
 		return result;
 	}
 

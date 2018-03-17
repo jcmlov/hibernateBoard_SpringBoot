@@ -1,5 +1,8 @@
 package org.hibernateBoard.controller.board;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.board.Board;
@@ -43,6 +46,19 @@ public class BoardCommentController {
 		return "redirect:/board/boardDetail?boardNo=" + boardNo;
 	}
 	
+	@GetMapping(value="/ajax/boardCommentDetail")
+	@ResponseBody
+	public BoardComment boardCommentDetailAjax(Model model, HttpSession session, long commentNo) {
+		
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return null;
+		}
+		
+		BoardComment boardComment = boardCommetService.boardCommentDetail(commentNo);
+		
+		return boardComment;
+	}
+	
 	@PostMapping(value="/ajax/boardCommentRegist")
 	@ResponseBody
 	public BoardComment createAjax(Model model, HttpSession session, long boardNo, String comment) {
@@ -70,6 +86,43 @@ public class BoardCommentController {
 		BoardComment boardComment = boardCommetService.boardCommentDetail(commentNo);
 		
 		return boardComment;
+	}
+	
+	@PostMapping(value="/ajax/boardCommentUpdate")
+	@ResponseBody
+	public BoardComment updateAjax(Model model, HttpSession session, long commentNo, String comment) {
+		
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return null;
+		}
+		
+		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		
+		return boardCommetService.commentUpdateAjax(commentNo, comment, loginUser);
+	}
+	
+	@PostMapping(value="/ajax/boardCommentDelete")
+	@ResponseBody
+	public Map<String, Object> deleteAjax(Model model, HttpSession session, long commentNo) {
+	
+		Map<String, Object> result = new HashMap<String, Object>();
+		boolean resultBoolean = true;
+		if(!HttpSessionUtils.isLoginUser(session)) {
+			return null;
+		}
+		
+		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		
+		BoardComment boardComment = boardCommetService.commentDeleteAjax(commentNo, loginUser);
+		
+		if(boardComment != null) {
+			resultBoolean = false;
+		}
+		
+		result.put("resultBoolean", resultBoolean);
+		result.put("commentNo", commentNo);
+		
+		return result;
 	}
 	
 }

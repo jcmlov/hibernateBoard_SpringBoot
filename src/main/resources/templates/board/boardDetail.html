@@ -104,12 +104,12 @@ $(function(){
 						</div>
 						<div class="row comment">
 						{{#board.comments}}
-							<div class="col-sm-1">
+							<div class="col-sm-1" id="thumbnailDiv_{{commentNo}}">
 								<div class="thumbnail">
 									<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
 								</div>
 							</div>
-							<div class="col-sm-11">
+							<div class="col-sm-11" id="contentDiv_{{commentNo}}">
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<strong>{{register.userId}}</strong>

@@ -31,6 +31,9 @@ public class BoardComment {
 	@JoinColumn(foreignKey = @ForeignKey(name="fk_comment_register"))
 	private User register;
 	
+	@Column(length=20)
+	private String updateId;
+	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name="fk_comment_boardNo"))
 	private Board board;
@@ -41,6 +44,9 @@ public class BoardComment {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date registDate = new Date();
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateDate;
 	
 	@Transient
 	private boolean equalUserId;
@@ -61,6 +67,14 @@ public class BoardComment {
 		this.register = register;
 	}
 
+	public String getUpdateId() {
+		return updateId;
+	}
+
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+
 	public String getComment() {
 		return comment;
 	}
@@ -77,6 +91,14 @@ public class BoardComment {
 		this.registDate = registDate;
 	}
 	
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
 	public boolean getEqualUserId() {
 		return equalUserId;
 	}
@@ -95,6 +117,12 @@ public class BoardComment {
 		this.isEqualRegistId(register);
 	}
 	
+	public void update(String comment, User loginUser) {
+		this.comment = comment;
+		this.updateId = loginUser.getUserId();
+		this.updateDate = new Date();
+	}
+	
 	public boolean isEqualRegistId(User userInfo) {
 		
 		equalUserId = userInfo.getUserId().equals(register.getUserId());
@@ -109,6 +137,17 @@ public class BoardComment {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String returnFormat = sdf.format(registDate);
+		
+		return returnFormat;
+	}
+	
+	public String getFormattedUpdateDate() {
+		if(updateDate == null) {
+			return "";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String returnFormat = sdf.format(updateDate);
 		
 		return returnFormat;
 	}
