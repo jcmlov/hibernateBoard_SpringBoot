@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void create(User user) {
+	public User create(User user) {
 		
-		userRepository.save(user);
+		return userRepository.save(user);
 		
 	}
 
@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
 		user.update(newUser);
 		userRepository.save(user);
 		
+	}
+
+	@Override
+	public User validateUser(String userEmail) {
+		
+		return userRepository.findByUserEmail(userEmail);
 	}
 
 }

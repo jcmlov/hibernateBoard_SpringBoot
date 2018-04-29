@@ -1,19 +1,23 @@
 package org.hibernateBoard.controller.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.user.User;
 import org.hibernateBoard.service.user.UserService;
 import org.hibernateBoard.util.HttpSessionUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/user")
@@ -107,6 +111,7 @@ public class UserController {
 		
 		return result;
 	}
+
 	
 	@PostMapping(value="/userUpdate")
 	public String update(User newUser, Model model, HttpSession session) {
@@ -128,6 +133,30 @@ public class UserController {
 			result = "redirect:/login/loginForm";
 		}
 		
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/ajax/userCreate")
+	@ResponseBody
+	public JSONObject androidCreate(HttpServletRequest request) {
+		
+		JSONObject result = new JSONObject();
+		
+		User user = new User();
+		user.setUserId(request.getParameter("userId"));
+		user.setUserPw(request.getParameter("userPw"));
+		user.setUserNm(request.getParameter("userNm"));
+		user.setUserEmail(request.getParameter("userEmail"));
+		
+		User returnUser = userService.validateUser(request.getParameter("userEmail"));
+		if(returnUser != null) {
+			result.put("success", false);
+		} else {
+			userService.create(user);
+			result.put("success", true);
+		}
+
 		return result;
 	}
 	

@@ -10,8 +10,10 @@ public interface UserService {
 	
 	public User userDetail(long userNo);
 	
-	public void create(User user);
+	public User create(User user);
 	
 	public void update(User newUser);
+
+	public User validateUser(String userEmail);
 	
 }
