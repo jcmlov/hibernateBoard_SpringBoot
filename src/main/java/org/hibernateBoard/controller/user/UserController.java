@@ -1,8 +1,7 @@
 package org.hibernateBoard.controller.user;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -158,6 +157,24 @@ public class UserController {
 		}
 
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/ajax/userList")
+	@ResponseBody
+	public JSONObject ajaxUserList(HttpServletRequest request) {
+		
+		JSONObject result = new JSONObject();
+		List<User> userList = userService.userList();
+		
+		if(userList != null) {
+			result.put("response", userList);
+		} else {
+			result.put("response", new ArrayList<User>());
+		}
+
+		return result;
+		
 	}
 	
 }
