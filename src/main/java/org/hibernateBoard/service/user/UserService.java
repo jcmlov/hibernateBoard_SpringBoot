@@ -15,5 +15,7 @@ public interface UserService {
 	public void update(User newUser);
 
 	public User validateUser(String userEmail);
+
+	public boolean userDelete(String userId);
 	
 }

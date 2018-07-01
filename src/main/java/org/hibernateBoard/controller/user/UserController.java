@@ -177,4 +177,20 @@ public class UserController {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/ajax/userDelete")
+	@ResponseBody
+	public JSONObject androidDelete(HttpServletRequest request) {
+		
+		JSONObject result = new JSONObject();
+		
+		User user = new User();
+		user.setUserId(request.getParameter("userId"));
+		
+		boolean deleteResult = userService.userDelete(user.getUserId());
+		result.put("success", deleteResult);
+
+		return result;
+	}
+	
 }
