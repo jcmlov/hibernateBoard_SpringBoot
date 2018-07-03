@@ -3,7 +3,7 @@ package org.hibernateBoard.service.board;
 import java.util.List;
 
 import org.hibernateBoard.entity.board.Board;
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 
 public interface BoardService {
 
@@ -13,8 +13,8 @@ public interface BoardService {
 	
 	public Board boardDetail(long boardNo);
 
-	public void boardUpdate(Board newBoard, User userInfo);
+	public void boardUpdate(Board newBoard, Member userInfo);
 
-	public void boardDelete(long boardNo, User userInfo);
+	public void boardDelete(long boardNo, Member userInfo);
 	
 }

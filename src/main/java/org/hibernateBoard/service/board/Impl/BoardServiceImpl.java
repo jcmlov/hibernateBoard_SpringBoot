@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernateBoard.entity.board.Board;
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 import org.hibernateBoard.repository.board.BoardRepository;
 import org.hibernateBoard.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void boardUpdate(Board newBoard, User userInfo) {
+	public void boardUpdate(Board newBoard, Member userInfo) {
 		
 		Board board = boardRepository.findByBoardNo(newBoard.getBoardNo());
 		
@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void boardDelete(long boardNo, User userInfo) {
+	public void boardDelete(long boardNo, Member userInfo) {
 
 		Board board = boardRepository.findByBoardNo(boardNo);
 		board.delete(boardNo, userInfo);

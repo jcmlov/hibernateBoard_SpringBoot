@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 
 
 @Entity
@@ -144,7 +144,7 @@ public class Board {
 		return comments;
 	}
 
-	public boolean isEqualRegistId(User userInfo) {
+	public boolean isEqualRegistId(Member userInfo) {
 		return this.registId.equals(userInfo.getUserId());
 	}
 	
@@ -181,14 +181,14 @@ public class Board {
 		return returnFormat;
 	}
 	
-	public void update(Board newBoard, User userInfo) {
+	public void update(Board newBoard, Member userInfo) {
 		this.boardTitle = newBoard.getBoardTitle();
 		this.boardContent = newBoard.getBoardContent();
 		this.updateId = userInfo.getUserId();
 		this.updateDate = new Date();
 	}
 
-	public void delete(long boardNo, User userInfo) {
+	public void delete(long boardNo, Member userInfo) {
 		this.deleteId = userInfo.getUserId();
 		this.deleteDate = new Date();
 		this.deleteYn = "Y";

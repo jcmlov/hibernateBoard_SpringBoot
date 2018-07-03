@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.board.Board;
 import org.hibernateBoard.entity.board.BoardComment;
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 import org.hibernateBoard.service.board.BoardService;
 import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class BoardController {
 			return "redirect:/login/loginForm";
 		}
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		Board board = boardService.boardDetail(boardNo);
 		boolean isEqualRegistId = board.isEqualRegistId(userInfo);
 		
@@ -74,7 +74,7 @@ public class BoardController {
 			return "redirect:/login/loginForm";
 		}
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		Board board = boardService.boardDetail(boardNo);
 		boolean isEqualRegistId = board.isEqualRegistId(userInfo);
 		
@@ -91,7 +91,7 @@ public class BoardController {
 			return "redirect:/login/loginForm";
 		}
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		board.setRegistId(userInfo.getUserId());
 		board.setDeleteYn("N");
 		boardService.boardRegist(board);
@@ -106,7 +106,7 @@ public class BoardController {
 			return "redirect:/login/loginForm";
 		}
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		Board board = boardService.boardDetail(newBoard.getBoardNo());
 		
 		if(!board.isEqualRegistId(userInfo)) {
@@ -126,7 +126,7 @@ public class BoardController {
 			return "redirect:/login/loginForm";
 		}
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		Board board = boardService.boardDetail(boardNo);
 		
 		if(!board.isEqualRegistId(userInfo)) {

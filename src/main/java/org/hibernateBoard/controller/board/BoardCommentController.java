@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.board.Board;
 import org.hibernateBoard.entity.board.BoardComment;
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 import org.hibernateBoard.service.board.BoardCommetService;
 import org.hibernateBoard.service.board.BoardService;
 import org.hibernateBoard.util.HttpSessionUtils;
@@ -36,7 +36,7 @@ public class BoardCommentController {
 			return "/login/loginForm";
 		}
 		
-		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		Member loginUser = HttpSessionUtils.getUserFormSession(session);
 		
 		Board board = boardService.boardDetail(boardNo);
 		
@@ -67,7 +67,7 @@ public class BoardCommentController {
 			return null;
 		}
 		
-		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		Member loginUser = HttpSessionUtils.getUserFormSession(session);
 		
 		Board board = boardService.boardDetail(boardNo);
 		BoardComment boardComment = new BoardComment(loginUser, comment, board);
@@ -96,7 +96,7 @@ public class BoardCommentController {
 			return null;
 		}
 		
-		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		Member loginUser = HttpSessionUtils.getUserFormSession(session);
 		
 		return boardCommetService.commentUpdateAjax(commentNo, comment, loginUser);
 	}
@@ -111,7 +111,7 @@ public class BoardCommentController {
 			return null;
 		}
 		
-		User loginUser = HttpSessionUtils.getUserFormSession(session);
+		Member loginUser = HttpSessionUtils.getUserFormSession(session);
 		
 		BoardComment boardComment = boardCommetService.commentDeleteAjax(commentNo, loginUser);
 		

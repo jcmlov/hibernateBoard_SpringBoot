@@ -1,8 +1,8 @@
-package org.hibernateBoard.vo.user;
+package org.hibernateBoard.vo.member;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-public class UserVO {
+public class MemberVO {
 
 	private int userNo;
 	private String userId;

@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 
 @Entity
 @Table(name="boardComment")
@@ -29,7 +29,7 @@ public class BoardComment {
 	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name="fk_comment_register"))
-	private User register;
+	private Member register;
 	
 	@Column(length=20)
 	private String updateId;
@@ -59,11 +59,11 @@ public class BoardComment {
 		this.commentNo = commentNo;
 	}
 
-	public User getRegister() {
+	public Member getRegister() {
 		return register;
 	}
 
-	public void setRegister(User register) {
+	public void setRegister(Member register) {
 		this.register = register;
 	}
 
@@ -110,20 +110,20 @@ public class BoardComment {
 	public BoardComment() {
 	}
 	
-	public BoardComment(User register, String comment, Board board) {
+	public BoardComment(Member register, String comment, Board board) {
 		this.register = register;
 		this.comment = comment;
 		this.board = board;
 		this.isEqualRegistId(register);
 	}
 	
-	public void update(String comment, User loginUser) {
+	public void update(String comment, Member loginUser) {
 		this.comment = comment;
 		this.updateId = loginUser.getUserId();
 		this.updateDate = new Date();
 	}
 	
-	public boolean isEqualRegistId(User userInfo) {
+	public boolean isEqualRegistId(Member userInfo) {
 		
 		equalUserId = userInfo.getUserId().equals(register.getUserId());
 		

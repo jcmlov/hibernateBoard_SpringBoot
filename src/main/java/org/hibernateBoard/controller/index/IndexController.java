@@ -2,7 +2,7 @@ package org.hibernateBoard.controller.index;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +23,7 @@ public class IndexController {
 		
 		String result = "";
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
 		
 		if(userInfo != null) {
 			result = "/index/main";

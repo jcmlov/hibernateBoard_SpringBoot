@@ -2,8 +2,8 @@ package org.hibernateBoard.service.user.Impl;
 
 import java.util.List;
 
-import org.hibernateBoard.entity.user.User;
-import org.hibernateBoard.repository.user.UserRepository;
+import org.hibernateBoard.entity.member.Member;
+import org.hibernateBoard.repository.member.MemberRepository;
 import org.hibernateBoard.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -15,42 +15,42 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private MemberRepository userRepository;
 	
 	@Override
-	public List<User> userList() {
+	public List<Member> userList() {
 
-		List<User> resultList = userRepository.findAll(new Sort(new Order(Direction.DESC, "userNo")));
+		List<Member> resultList = userRepository.findAll(new Sort(new Order(Direction.DESC, "userNo")));
 		
 		return resultList;
 	}
 	
 	@Override
-	public User userDetail(long userNo) {
+	public Member userDetail(long userNo) {
 
-		User result = userRepository.findOne(userNo);
+		Member result = userRepository.findOne(userNo);
 				
 		return result;
 	}
 	
 	@Override
-	public User create(User user) {
+	public Member create(Member user) {
 		
 		return userRepository.save(user);
 		
 	}
 
 	@Override
-	public void update(User newUser) {
+	public void update(Member newUser) {
 
-		User user = userRepository.findOne(newUser.getUserNo());
+		Member user = userRepository.findOne(newUser.getUserNo());
 		user.update(newUser);
 		userRepository.save(user);
 		
 	}
 
 	@Override
-	public User validateUser(String userEmail) {
+	public Member validateUser(String userEmail) {
 		
 		return userRepository.findByUserEmail(userEmail);
 	}
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean userDelete(String userId) {
 		
-		User user = userRepository.findByUserId(userId);
+		Member user = userRepository.findByUserId(userId);
 		boolean result = false;
 		
 		if(user != null) {

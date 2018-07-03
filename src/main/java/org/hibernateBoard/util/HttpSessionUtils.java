@@ -2,7 +2,7 @@ package org.hibernateBoard.util;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
 
 public class HttpSessionUtils {
 
@@ -21,12 +21,12 @@ public class HttpSessionUtils {
 		return result;
 	}
 	
-	public static User getUserFormSession(HttpSession session) {
+	public static Member getUserFormSession(HttpSession session) {
 		if(!isLoginUser(session)) {
 			return null;
 		}
 		
-		return (User) session.getAttribute(USER_SESSION_KEY);
+		return (Member) session.getAttribute(USER_SESSION_KEY);
 	}
 	
 }

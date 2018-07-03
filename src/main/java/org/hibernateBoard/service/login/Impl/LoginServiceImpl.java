@@ -1,7 +1,7 @@
 package org.hibernateBoard.service.login.Impl;
 
-import org.hibernateBoard.entity.user.User;
-import org.hibernateBoard.repository.user.UserRepository;
+import org.hibernateBoard.entity.member.Member;
+import org.hibernateBoard.repository.member.MemberRepository;
 import org.hibernateBoard.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private MemberRepository userRepository;
 
 	@Override
-	public User findByUserIdAndUserPw(String userId, String userPw) {
+	public Member findByUserIdAndUserPw(String userId, String userPw) {
 
-		User result = userRepository.findByUserIdAndUserPw(userId, userPw);
+		Member result = userRepository.findByUserIdAndUserPw(userId, userPw);
 				
 		return result;
 	}

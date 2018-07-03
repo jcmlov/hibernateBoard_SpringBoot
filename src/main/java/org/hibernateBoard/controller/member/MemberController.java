@@ -1,4 +1,4 @@
-package org.hibernateBoard.controller.user;
+package org.hibernateBoard.controller.member;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.member.Member;
+import org.hibernateBoard.entity.member.MemberRole;
 import org.hibernateBoard.service.user.UserService;
-import org.hibernateBoard.util.HttpSessionUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/user")
-public class UserController {
+public class MemberController {
 
 	@Autowired
 	private UserService userService;
@@ -28,40 +29,20 @@ public class UserController {
 	@GetMapping(value="/userList")
 	public String list(Model model, HttpSession session) {
 		
-		String result = "";
-		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			List<User> userList = userService.userList();
-			model.addAttribute("userList", userList);
+		List<Member> userList = userService.userList();
+		model.addAttribute("userList", userList);
 			
-			result = "/user/userList";
-		} else {
-			result = "redirect:/login/loginForm";
-		}
-		
-		return result;
+		return "/user/userList";
 		
 	}
 	
 	@GetMapping(value="/userDetail")
 	public String detail(long userNo, Model model, HttpSession session) {
 		
-		String result = "";
+		Member user = userService.userDetail(userNo);
+		model.addAttribute("user", user);
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			User user = userService.userDetail(userNo);
-			model.addAttribute("user", user);
-			
-			result = "/user/userDetail";
-		} else {
-			result = "redirect:/login/loginForm";
-		}
-		
-		return result;
+		return "/user/userDetail";
 	}
 	
 	@GetMapping(value="/userForm")
@@ -73,61 +54,39 @@ public class UserController {
 	@GetMapping(value="/userUpdateForm")
 	public String updateForm(long userNo, Model model, HttpSession session) {
 		
-		String result = "";
+		Member user = userService.userDetail(userNo);
+		model.addAttribute("user", user);
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			if(userNo == userInfo.getUserNo()) {
-				User user = userService.userDetail(userInfo.getUserNo());
-				model.addAttribute("user", user);
-				
-				result = "/user/userUpdateForm";
-			} else {
-				result = "redirect:/";
-			}
-		} else {
-			result = "redirect:/login/loginForm";
-		}
-		
-		return result;
+		return "/user/userUpdateForm";
 	}
 	
 	
 	@PostMapping(value="/userCreate")
-	public String create(User user, Model model, HttpSession session) {
+	public String create(Member user, Model model, HttpSession session) {
 		
-		String result = "";
+		MemberRole role = new MemberRole();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+		user.setUserPw(passwordEncoder.encode(user.getUserPw()));
+		role.setRoleName("DEFAULT_USER");
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		userService.create(user);
 		
-		if(userInfo != null) {
-			userService.create(user);
-			result = "redirect:/user/userList";
-		} else {
-			result = "redirect:/login/loginForm";
-		}
-		
-		return result;
+		return "redirect:/user/userList";
 	}
 
 	
 	@PostMapping(value="/userUpdate")
-	public String update(User newUser, Model model, HttpSession session) {
+	public String update(Member newUser, Model model, HttpSession session) {
 		
 		String result = "";
 		
-		User userInfo = (User) HttpSessionUtils.getUserFormSession(session);
+		long userNo = newUser.getUserNo();
+		String userNumber = (String) session.getAttribute("userNo");
 		
-		if(userInfo != null) {
-			long userNo = newUser.getUserNo();
-			
-			if(userNo == userInfo.getUserNo()) {
-				userService.update(newUser);
-				result = "redirect:/";
-			} else {
-				result = "redirect:/";
-			}
+		if(userNo == Integer.parseInt(userNumber)) {
+			userService.update(newUser);
+			result = "redirect:/";
 		} else {
 			result = "redirect:/login/loginForm";
 		}
@@ -142,13 +101,13 @@ public class UserController {
 		
 		JSONObject result = new JSONObject();
 		
-		User user = new User();
+		Member user = new Member();
 		user.setUserId(request.getParameter("userId"));
 		user.setUserPw(request.getParameter("userPw"));
 		user.setUserNm(request.getParameter("userNm"));
 		user.setUserEmail(request.getParameter("userEmail"));
 		
-		User returnUser = userService.validateUser(request.getParameter("userEmail"));
+		Member returnUser = userService.validateUser(request.getParameter("userEmail"));
 		if(returnUser != null) {
 			result.put("success", false);
 		} else {
@@ -165,12 +124,12 @@ public class UserController {
 	public JSONObject ajaxUserList(HttpServletRequest request) {
 		
 		JSONObject result = new JSONObject();
-		List<User> userList = userService.userList();
+		List<Member> userList = userService.userList();
 		
 		if(userList != null) {
 			result.put("response", userList);
 		} else {
-			result.put("response", new ArrayList<User>());
+			result.put("response", new ArrayList<Member>());
 		}
 
 		return result;
@@ -184,7 +143,7 @@ public class UserController {
 		
 		JSONObject result = new JSONObject();
 		
-		User user = new User();
+		Member user = new Member();
 		user.setUserId(request.getParameter("userId"));
 		
 		boolean deleteResult = userService.userDelete(user.getUserId());

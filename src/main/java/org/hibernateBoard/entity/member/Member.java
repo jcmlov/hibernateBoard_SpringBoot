@@ -1,16 +1,26 @@
-package org.hibernateBoard.entity.user;
+package org.hibernateBoard.entity.member;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="member")
+public class Member {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -27,7 +37,17 @@ public class User {
 	
 	@Column(nullable=false, length=500)
 	private String userPw;
-
+	
+	@CreationTimestamp
+	private Date registDt;
+	
+	@UpdateTimestamp
+	private Date updateDt;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="userId")
+	private List<MemberRole> roles;
+	
 	public long getUserNo() {
 		return userNo;
 	}
@@ -68,14 +88,35 @@ public class User {
 		this.userPw = userPw;
 	}
 
+	public Date getRegistDt() {
+		return registDt;
+	}
+
+	public void setRegistDt(Date registDt) {
+		this.registDt = registDt;
+	}
+
+	public Date getUpdateDt() {
+		return updateDt;
+	}
+
+	public void setUpdateDt(Date updateDt) {
+		this.updateDt = updateDt;
+	}
+
+	public List<MemberRole> getRoles() {
+		return roles;
+	}
+
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-	public void update(User newUser) {
+	public void update(Member newUser) {
 		this.userNm = newUser.userNm;
 		this.userEmail = newUser.userEmail;
 		this.userPw = newUser.userPw;
+		this.updateDt = new Date();
 	}
 
 	@Override
@@ -94,7 +135,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Member other = (Member) obj;
 		if (userId == null) {
 			if (other.userId != null)
 				return false;
