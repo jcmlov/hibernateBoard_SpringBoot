@@ -8,13 +8,13 @@
   $(function(){
 	 
 	$("#listBtn").on("click", function(){
-		location.href="/user/userList";
+		location.href="/member/memberList";
 	});
 	
 	$("#updateBtn").on("click", function(){
-		var userNo = $("#userNo").val();
+		var memberNo = $("#memberNo").val();
 		
-		location.href="/user/userUpdateForm?userNo=" + userNo;
+		location.href="/member/memberUpdateForm?memberNo=" + memberNo;
 	});
 	
   });
@@ -23,32 +23,32 @@
 	{{> include/newNavbar }}
 	
 	<div class="container">
-		<input type="hidden" id="userNo" value="{{user.userNo}}" />
+		<input type="hidden" id="memberNo" value="{{member.memberNo}}" />
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
 					<th>No</th>
-					<td>{{user.userNo}}</td>
+					<td>{{member.memberNo}}</td>
 				</tr>
 				<tr>
 					<th>사용자 이름</th>
-					<td>{{user.userNm}}</td>
+					<td>{{member.memberNm}}</td>
 				</tr>
 				<tr>
 					<th>사용자 이메일</th>
-					<td>{{user.userEmail}}</td>
+					<td>{{member.memberEmail}}</td>
 				</tr>
 				<tr>
 					<th>사용자 ID</th>
-					<td>{{user.userId}}</td>
+					<td>{{member.memberId}}</td>
 				</tr>
 			</tbody>
 		</table>
 		
 		<button type="button" class="btn btn-default clearfix pull-right" id="listBtn">목록</button>
-		{{#userInfo}}
+		{{#memberInfo}}
 			<button type="button" class="btn btn-primary clearfix pull-right" id="updateBtn">수정</button>
-		{{/userInfo}}
+		{{/memberInfo}}
 	</div>
 </body>
 </html>

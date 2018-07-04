@@ -10,24 +10,24 @@
 	 
 	$("#submitBtn").on("click", function(){
 		
-		if($("#userNm").val() == '') {
+		if($("#memberNm").val() == '') {
 			alert("이름을 입력하세요.");
 			return false;
 		}
-		if($("#userEmail").val() == '') {
+		if($("#memberEmail").val() == '') {
 			alert("이메일을 입력하세요.");
 			return false;
 		}
-		if($("#userId").val() == '') {
+		if($("#memberId").val() == '') {
 			alert("아이디를 입력하세요.");
 			return false;
 		}
-		if($("#userPw").val() == '') {
+		if($("#memberPw").val() == '') {
 			alert("비밀번호를 입력하세요.");
 			return false;
 		}
 		
-		$("#userForm").submit();
+		$("#memberForm").submit();
 	  });
 	
 	$("#cancelBtn").on("click", function() {
@@ -40,26 +40,26 @@
 	
 	<div class="container">
 		<div class="login-form">
-		    <form action="/user/userCreate" method="post" id="userForm" name="userForm">
+		    <form action="/member/memberCreate" method="post" id="memberForm" name="memberForm">
 				<div class="avatar">
 					<img src="http://cdn3.f-cdn.com/ppic/105311193/logo/26623052/TnqLe/profile_logo_.png" alt="yoatthmes"/>
 				</div>
 		        <h2 class="text-center">Member SignUp</h2>
 				<div class="form-group">
-					<label for="userNm">이름</label>
-					<input type="text" class="form-control" id="userNm" name="userNm" placeholder="이름을 입력하세요" required="required">
+					<label for="memberNm">이름</label>
+					<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="이름을 입력하세요" required="required">
 				</div>
 				<div class="form-group">
-					<label for="userEmail">이메일</label>
-					<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" required="required">
+					<label for="memberEmail">이메일</label>
+					<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일을 입력하세요" required="required">
 				</div>
 				<div class="form-group">
-					<label for="userId">아이디</label>
-					<input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" required="required">
+					<label for="memberId">아이디</label>
+					<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required="required">
 				</div>
 				<div class="form-group">
-					<label for="userPw">비밀번호</label>
-					<input type="password" class="form-control" id="userPw" name="userPw" placeholder="비밀번호" required="required">
+					<label for="memberPw">비밀번호</label>
+					<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="비밀번호" required="required">
 				</div>
 				<div class="form-group">
 					<button type="button" class="btn btn-primary btn-lg btn-block login-btn" id="submitBtn">저장</button>
@@ -71,22 +71,22 @@
 	
 	<!-- 
 	<div class="container">
-		<form action="/user/userCreate" method="post" id="userForm" name="userForm">
+		<form action="/member/memberCreate" method="post" id="memberForm" name="memberForm">
 			<div class="form-group">
-				<label for="userId">이름</label>
-				<input type="text" class="form-control" id="userNm" name="userNm" placeholder="이름을 입력하세요">
+				<label for="memberId">이름</label>
+				<input type="text" class="form-control" id="memberNm" name="memberNm" placeholder="이름을 입력하세요">
 			</div>
 			<div class="form-group">
-				<label for="userId">이메일</label>
-				<input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요">
+				<label for="memberId">이메일</label>
+				<input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일을 입력하세요">
 			</div>
 			<div class="form-group">
-				<label for="userId">사용자 아이디</label>
-				<input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요">
+				<label for="memberId">사용자 아이디</label>
+				<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
 			</div>
 			<div class="form-group">
-				<label for="userPw">비밀번호</label>
-				<input type="password" class="form-control" id="userPw" name="userPw" placeholder="비밀번호">
+				<label for="memberPw">비밀번호</label>
+				<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="비밀번호">
 			</div>
 			<button type="button" class="btn btn-default clearfix pull-right" id="cancelBtn">취소</button>
 			<button type="button" class="btn btn-primary clearfix pull-right" id="submitBtn">저장</button>

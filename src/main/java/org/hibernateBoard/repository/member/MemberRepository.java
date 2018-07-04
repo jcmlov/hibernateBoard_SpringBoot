@@ -8,11 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface MemberRepository extends CrudRepository<Member, Long> {
 
-	public Member findByUserIdAndUserPw(String userId, String userPw);
+	public Member findByMemberIdAndMemberPw(String memberId, String memberPw);
 	
-	public Member findByUserEmail(String userEmail);
+	public Member findByMemberEmail(String memberEmail);
 	
-	public Member findByUserId(String userId);
+	public Member findByMemberId(String memberId);
 
 	public List<Member> findAll(Sort sort);
 }

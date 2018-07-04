@@ -4,6 +4,6 @@ import org.hibernateBoard.entity.member.Member;
 
 public interface LoginService {
 
-	public Member findByUserIdAndUserPw(String userId, String userPw);
+	public Member findByMemberIdAndMemberPw(String memberId, String memberPw);
 	
 }

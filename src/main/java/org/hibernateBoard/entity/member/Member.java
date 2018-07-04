@@ -24,19 +24,19 @@ public class Member {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long userNo;
+	private long memberNo;
 
 	@Column(nullable=false, length=20, unique=true)
-	private String userId;
+	private String memberId;
 	
 	@Column(nullable=false, length=20)
-	private String userNm;
+	private String memberNm;
 	
 	@Column(nullable=false, length=100, unique=true)
-	private String userEmail;
+	private String memberEmail;
 	
 	@Column(nullable=false, length=500)
-	private String userPw;
+	private String memberPw;
 	
 	@CreationTimestamp
 	private Date registDt;
@@ -45,47 +45,47 @@ public class Member {
 	private Date updateDt;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="userId")
+	@JoinColumn(name="memberNo")
 	private List<MemberRole> roles;
 	
-	public long getUserNo() {
-		return userNo;
+	public long getMemberNo() {
+		return memberNo;
 	}
 
-	public void setUserNo(long userNo) {
-		this.userNo = userNo;
+	public void setMemberNo(long memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getUserNm() {
-		return userNm;
+	public String getMemberNm() {
+		return memberNm;
 	}
 
-	public void setUserNm(String userNm) {
-		this.userNm = userNm;
+	public void setMemberNm(String memberNm) {
+		this.memberNm = memberNm;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getMemberEmail() {
+		return memberEmail;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 
-	public String getUserPw() {
-		return userPw;
+	public String getMemberPw() {
+		return memberPw;
 	}
 
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 
 	public Date getRegistDt() {
@@ -113,9 +113,9 @@ public class Member {
 	}
 
 	public void update(Member newUser) {
-		this.userNm = newUser.userNm;
-		this.userEmail = newUser.userEmail;
-		this.userPw = newUser.userPw;
+		this.memberNm = newUser.memberNm;
+		this.memberEmail = newUser.memberEmail;
+		this.memberPw = newUser.memberPw;
 		this.updateDt = new Date();
 	}
 
@@ -123,7 +123,7 @@ public class Member {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		return result;
 	}
 
@@ -136,10 +136,10 @@ public class Member {
 		if (getClass() != obj.getClass())
 			return false;
 		Member other = (Member) obj;
-		if (userId == null) {
-			if (other.userId != null)
+		if (memberId == null) {
+			if (other.memberId != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!memberId.equals(other.memberId))
 			return false;
 		return true;
 	}

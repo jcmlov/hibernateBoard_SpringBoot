@@ -144,8 +144,8 @@ public class Board {
 		return comments;
 	}
 
-	public boolean isEqualRegistId(Member userInfo) {
-		return this.registId.equals(userInfo.getUserId());
+	public boolean isEqualRegistId(Member memberInfo) {
+		return this.registId.equals(memberInfo.getMemberId());
 	}
 	
 	public String getFormattedRegistDate() {
@@ -181,15 +181,15 @@ public class Board {
 		return returnFormat;
 	}
 	
-	public void update(Board newBoard, Member userInfo) {
+	public void update(Board newBoard, Member memberInfo) {
 		this.boardTitle = newBoard.getBoardTitle();
 		this.boardContent = newBoard.getBoardContent();
-		this.updateId = userInfo.getUserId();
+		this.updateId = memberInfo.getMemberId();
 		this.updateDate = new Date();
 	}
 
-	public void delete(long boardNo, Member userInfo) {
-		this.deleteId = userInfo.getUserId();
+	public void delete(long boardNo, Member memberInfo) {
+		this.deleteId = memberInfo.getMemberId();
 		this.deleteDate = new Date();
 		this.deleteYn = "Y";
 	}

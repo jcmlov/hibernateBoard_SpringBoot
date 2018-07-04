@@ -117,15 +117,15 @@ public class BoardComment {
 		this.isEqualRegistId(register);
 	}
 	
-	public void update(String comment, Member loginUser) {
+	public void update(String comment, Member loginMember) {
 		this.comment = comment;
-		this.updateId = loginUser.getUserId();
+		this.updateId = loginMember.getMemberId();
 		this.updateDate = new Date();
 	}
 	
-	public boolean isEqualRegistId(Member userInfo) {
+	public boolean isEqualRegistId(Member memberInfo) {
 		
-		equalUserId = userInfo.getUserId().equals(register.getUserId());
+		equalUserId = memberInfo.getMemberId().equals(register.getMemberId());
 		
 		return equalUserId;
 	}

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernateBoard.entity.member.Member;
 import org.hibernateBoard.entity.member.MemberRole;
-import org.hibernateBoard.service.user.UserService;
+import org.hibernateBoard.service.member.MemberService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,72 +20,72 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value="/member")
 public class MemberController {
 
 	@Autowired
-	private UserService userService;
+	private MemberService memberService;
 
-	@GetMapping(value="/userList")
+	@GetMapping(value="/memberList")
 	public String list(Model model, HttpSession session) {
 		
-		List<Member> userList = userService.userList();
-		model.addAttribute("userList", userList);
+		List<Member> memberList = memberService.memberList();
+		model.addAttribute("memberList", memberList);
 			
-		return "/user/userList";
+		return "/member/memberList";
 		
 	}
 	
-	@GetMapping(value="/userDetail")
-	public String detail(long userNo, Model model, HttpSession session) {
+	@GetMapping(value="/memberDetail")
+	public String detail(long memberNo, Model model, HttpSession session) {
 		
-		Member user = userService.userDetail(userNo);
-		model.addAttribute("user", user);
+		Member member = memberService.memberDetail(memberNo);
+		model.addAttribute("member", member);
 		
-		return "/user/userDetail";
+		return "/member/memberDetail";
 	}
 	
-	@GetMapping(value="/userForm")
+	@GetMapping(value="/memberForm")
 	public String form(Model model, HttpSession session) {
 		
-		return "/user/userForm";
+		return "/member/memberForm";
 	}
 	
-	@GetMapping(value="/userUpdateForm")
-	public String updateForm(long userNo, Model model, HttpSession session) {
+	@GetMapping(value="/memberUpdateForm")
+	public String updateForm(long memberNo, Model model, HttpSession session) {
 		
-		Member user = userService.userDetail(userNo);
-		model.addAttribute("user", user);
+		Member member = memberService.memberDetail(memberNo);
+		model.addAttribute("member", member);
 		
-		return "/user/userUpdateForm";
+		return "/member/memberUpdateForm";
 	}
 	
 	
-	@PostMapping(value="/userCreate")
-	public String create(Member user, Model model, HttpSession session) {
+	@PostMapping(value="/memberCreate")
+	public String create(Member member, Model model, HttpSession session) {
 		
 		MemberRole role = new MemberRole();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-		user.setUserPw(passwordEncoder.encode(user.getUserPw()));
-		role.setRoleName("DEFAULT_USER");
+		member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
+		role.setRoleName("DEFAULT_member");
 		
-		userService.create(user);
+		memberService.create(member);
 		
-		return "redirect:/user/userList";
+		return "redirect:/member/memberList";
 	}
 
 	
-	@PostMapping(value="/userUpdate")
-	public String update(Member newUser, Model model, HttpSession session) {
+	@PostMapping(value="/memberUpdate")
+	public String update(Member newmember, Model model, HttpSession session) {
 		
 		String result = "";
 		
-		long userNo = newUser.getUserNo();
-		String userNumber = (String) session.getAttribute("userNo");
+		long memberNo = newmember.getMemberNo();
+		String memberNumber = (String) session.getAttribute("memberNo");
 		
-		if(userNo == Integer.parseInt(userNumber)) {
-			userService.update(newUser);
+		if(memberNo == Integer.parseInt(memberNumber)) {
+			memberService.update(newmember);
 			result = "redirect:/";
 		} else {
 			result = "redirect:/login/loginForm";
@@ -95,23 +95,23 @@ public class MemberController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/ajax/userCreate")
+	@RequestMapping("/ajax/memberCreate")
 	@ResponseBody
 	public JSONObject androidCreate(HttpServletRequest request) {
 		
 		JSONObject result = new JSONObject();
 		
-		Member user = new Member();
-		user.setUserId(request.getParameter("userId"));
-		user.setUserPw(request.getParameter("userPw"));
-		user.setUserNm(request.getParameter("userNm"));
-		user.setUserEmail(request.getParameter("userEmail"));
+		Member member = new Member();
+		member.setMemberId(request.getParameter("memberId"));
+		member.setMemberPw(request.getParameter("memberPw"));
+		member.setMemberNm(request.getParameter("memberNm"));
+		member.setMemberEmail(request.getParameter("memberEmail"));
 		
-		Member returnUser = userService.validateUser(request.getParameter("userEmail"));
-		if(returnUser != null) {
+		Member returnmember = memberService.validateMember(request.getParameter("memberEmail"));
+		if(returnmember != null) {
 			result.put("success", false);
 		} else {
-			userService.create(user);
+			memberService.create(member);
 			result.put("success", true);
 		}
 
@@ -119,15 +119,15 @@ public class MemberController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/ajax/userList")
+	@RequestMapping(value="/ajax/memberList")
 	@ResponseBody
-	public JSONObject ajaxUserList(HttpServletRequest request) {
+	public JSONObject ajaxmemberList(HttpServletRequest request) {
 		
 		JSONObject result = new JSONObject();
-		List<Member> userList = userService.userList();
+		List<Member> memberList = memberService.memberList();
 		
-		if(userList != null) {
-			result.put("response", userList);
+		if(memberList != null) {
+			result.put("response", memberList);
 		} else {
 			result.put("response", new ArrayList<Member>());
 		}
@@ -137,16 +137,16 @@ public class MemberController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/ajax/userDelete")
+	@RequestMapping("/ajax/memberDelete")
 	@ResponseBody
 	public JSONObject androidDelete(HttpServletRequest request) {
 		
 		JSONObject result = new JSONObject();
 		
-		Member user = new Member();
-		user.setUserId(request.getParameter("userId"));
+		Member member = new Member();
+		member.setMemberId(request.getParameter("memberId"));
 		
-		boolean deleteResult = userService.userDelete(user.getUserId());
+		boolean deleteResult = memberService.memberDelete(member.getMemberId());
 		result.put("success", deleteResult);
 
 		return result;

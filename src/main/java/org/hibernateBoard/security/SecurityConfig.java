@@ -1,5 +1,6 @@
 package org.hibernateBoard.security;
 
+import org.hibernateBoard.security.handler.CustomLoginSuccessHandler;
 import org.hibernateBoard.security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -47,21 +49,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 			.antMatchers("/admin/**").hasRole("ADMIN")
-			// .antMatchers("/user/**").authenticated()
 			.antMatchers("/board/**").authenticated()
 			.antMatchers("/ajax/**").permitAll()
+			.antMatchers("/login/loginForm").permitAll()
 			.antMatchers("/user/userForm").permitAll()
-			// .antMatchers("/user/userCreate").permitAll()
 			.antMatchers("/**").permitAll()
-			.and().formLogin()
+			.and()
+		.formLogin()
+			.usernameParameter("userId")
+			.usernameParameter("userPw")
 			.loginPage("/login/loginForm")
 			.loginProcessingUrl("/login/loginAction")
-			.defaultSuccessUrl("/")
-	    	.failureUrl("/login/loginForm")
+			.defaultSuccessUrl("/main")
+			.successHandler(successHandler())
+			.failureUrl("/login/loginForm")
 	    	.and()
-	    	.logout();
+    	.logout()
+    		.logoutSuccessUrl("/")
+    		.invalidateHttpSession(true)
+    		.permitAll();
 		
 		http.csrf().disable();
+	}
+
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+	    return new CustomLoginSuccessHandler("/defaultUrl");
 	}
 
 

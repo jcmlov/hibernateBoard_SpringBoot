@@ -112,16 +112,16 @@ $(function(){
 							<div class="col-sm-11" id="contentDiv_{{commentNo}}">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<strong>{{register.userId}}</strong>
+										<strong>{{register.memberId}}</strong>
 										<i class="glyphicon glyphicon-time"></i><span class="text-muted">{{formattedRegistDate}}</span>
-										{{#equalUserId}}
+										{{#equalMemberId}}
 											<button type="button" class="btn btn-danger btn-xs clearfix pull-right" id="deleteCommentBtn" onClick="deleteComment({{commentNo}}, event)">
 												<span class="glyphicon glyphicon-trash"></span>
 											</button>
 											<button type="button" class="btn btn-primary btn-xs clearfix pull-right" id="updateCommentBtn" onClick="forUpdateComment({{commentNo}}, event)">
 												<span class="glyphicon glyphicon-pencil"></span>
 											</button>
-										{{/equalUserId}}
+										{{/equalMemberId}}
 									</div>
 									<div class="panel-body" id="comment_{{commentNo}}">{{comment}}</div>
 								</div>

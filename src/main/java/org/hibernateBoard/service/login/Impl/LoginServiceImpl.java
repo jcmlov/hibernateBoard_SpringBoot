@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
-	private MemberRepository userRepository;
+	private MemberRepository memberRepository;
 
 	@Override
-	public Member findByUserIdAndUserPw(String userId, String userPw) {
+	public Member findByMemberIdAndMemberPw(String memberId, String memberPw) {
 
-		Member result = userRepository.findByUserIdAndUserPw(userId, userPw);
+		Member result = memberRepository.findByMemberIdAndMemberPw(memberId, memberPw);
 				
 		return result;
 	}

@@ -8,7 +8,6 @@ import org.hibernateBoard.security.service.CustomUserDetailsService;
 import org.hibernateBoard.service.login.LoginService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,10 +35,10 @@ public class LoginController {
 	}
 	
 	@PostMapping(value="/loginAction")
-	public String loginAction(Member user, Model model, HttpSession session) {
+	public String loginAction(Member member, Model model, HttpSession session) {
 		
-		// UserDetails userInfo = customUserDetailsService.loadUserByUsername(user.getUserId());
-		// userInfo.getAuthorities();
+		// memberDetails memberInfo = custommemberDetailsService.loadmemberBymembername(member.getmemberId());
+		// memberInfo.getAuthorities();
 		
 		return "redirect:/main";
 	}
@@ -51,13 +50,13 @@ public class LoginController {
 		
 		JSONObject result = new JSONObject();
 		
-		Member userInfo = loginService.findByUserIdAndUserPw(request.getParameter("userId"), request.getParameter("userPw"));
-		if(userInfo != null) {
+		Member memberInfo = loginService.findByMemberIdAndMemberPw(request.getParameter("memberId"), request.getParameter("memberPw"));
+		if(memberInfo != null) {
 			result.put("success", true);
-			result.put("userId", userInfo.getUserId());
-			result.put("userPw", userInfo.getUserPw());
-			result.put("userNm", userInfo.getUserNm());
-			result.put("userEmail", userInfo.getUserEmail());
+			result.put("memberId", memberInfo.getMemberId());
+			result.put("memberPw", memberInfo.getMemberPw());
+			result.put("memberNm", memberInfo.getMemberNm());
+			result.put("memberEmail", memberInfo.getMemberEmail());
 		} else {
 			result.put("success", false);
 		}

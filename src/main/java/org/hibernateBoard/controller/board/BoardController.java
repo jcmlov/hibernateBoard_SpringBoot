@@ -92,7 +92,7 @@ public class BoardController {
 		}
 		
 		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
-		board.setRegistId(userInfo.getUserId());
+		board.setRegistId(userInfo.getMemberId());
 		board.setDeleteYn("N");
 		boardService.boardRegist(board);
 		
