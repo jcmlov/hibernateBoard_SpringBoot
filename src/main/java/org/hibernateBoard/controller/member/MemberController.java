@@ -68,7 +68,7 @@ public class MemberController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 		member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
-		role.setRoleName("DEFAULT_member");
+		role.setRoleName("DEFAULT_MEMBER");
 		
 		memberService.create(member);
 		
