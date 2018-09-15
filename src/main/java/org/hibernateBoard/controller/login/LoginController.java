@@ -28,18 +28,11 @@ public class LoginController {
 	@GetMapping(value="/loginForm")
 	public String loginForm(HttpServletRequest req) {
 		
-		String referer = req.getHeader("Referer");
-		req.getSession().setAttribute("prevPage", referer);
-		
 		return "/login/loginForm";
 	}
 	
 	@PostMapping(value="/loginAction")
 	public String loginAction(Member member, Model model, HttpSession session) {
-		
-		// memberDetails memberInfo = custommemberDetailsService.loadmemberBymembername(member.getmemberId());
-		// memberInfo.getAuthorities();
-		
 		return "redirect:/main";
 	}
 	

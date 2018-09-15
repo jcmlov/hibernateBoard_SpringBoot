@@ -62,15 +62,12 @@ public class MemberController {
 	
 	
 	@PostMapping(value="/memberCreate")
-	public String create(Member member, Model model, HttpSession session) {
+	public String create(Member member, MemberRole memberRole, Model model, HttpSession session) {
 		
-		MemberRole role = new MemberRole();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 		member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
-		role.setRoleName("DEFAULT_MEMBER");
-		
-		memberService.create(member);
+		memberRole.setMember(member);
+		memberService.create(member, memberRole);
 		
 		return "redirect:/member/memberList";
 	}
@@ -111,7 +108,7 @@ public class MemberController {
 		if(returnmember != null) {
 			result.put("success", false);
 		} else {
-			memberService.create(member);
+			// memberService.create(member);
 			result.put("success", true);
 		}
 

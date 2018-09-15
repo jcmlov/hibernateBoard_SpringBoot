@@ -3,7 +3,9 @@ package org.hibernateBoard.service.member.Impl;
 import java.util.List;
 
 import org.hibernateBoard.entity.member.Member;
+import org.hibernateBoard.entity.member.MemberRole;
 import org.hibernateBoard.repository.member.MemberRepository;
+import org.hibernateBoard.repository.member.MemberRoleRepository;
 import org.hibernateBoard.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -16,6 +18,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
+	
+	@Autowired
+	private MemberRoleRepository memberRoleRepository;
 	
 	@Override
 	public List<Member> memberList() {
@@ -34,9 +39,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Member create(Member member) {
+	public Member create(Member member, MemberRole memberRole) {
 		
-		return memberRepository.save(member);
+		Member result = memberRepository.save(member);
+		memberRoleRepository.save(memberRole);
+		
+		return result;
 		
 	}
 

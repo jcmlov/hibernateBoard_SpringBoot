@@ -19,11 +19,6 @@ public class PortfolioController {
 	
 	@GetMapping(value="/portfolioList")
 	public String list(Model model, HttpSession session) {
-		
-		if(!HttpSessionUtils.isLoginUser(session)) {
-			return "redirect:/login/loginForm";
-		}
-		
 		return "/portfolio/portfolioList";
 	}
 	

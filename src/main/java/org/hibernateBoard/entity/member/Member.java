@@ -26,13 +26,13 @@ public class Member {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long memberNo;
 
-	@Column(nullable=false, length=20, unique=true)
+	@Column(nullable=false, length=255, unique=true)
 	private String memberId;
 	
-	@Column(nullable=false, length=20)
+	@Column(nullable=false, length=255)
 	private String memberNm;
 	
-	@Column(nullable=false, length=100, unique=true)
+	@Column(nullable=false, length=255, unique=true)
 	private String memberEmail;
 	
 	@Column(nullable=false, length=500)
@@ -44,8 +44,7 @@ public class Member {
 	@UpdateTimestamp
 	private Date updateDt;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="memberNo")
+	@OneToMany(mappedBy="member", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<MemberRole> roles;
 	
 	public long getMemberNo() {

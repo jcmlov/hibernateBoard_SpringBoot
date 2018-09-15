@@ -20,17 +20,6 @@ public class IndexController {
 	
 	@GetMapping(value="main")
 	public String indexMain(Model model, HttpSession session) {
-		
-		String result = "";
-		
-		Member userInfo = (Member) HttpSessionUtils.getUserFormSession(session);
-		
-		if(userInfo != null) {
-			result = "/index/main";
-		} else {
-			result = "redirect:/login/loginForm";
-		}
-		
-		return result;
+		return "/index/main";
 	}
 }
