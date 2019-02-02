@@ -2,8 +2,6 @@ package org.hibernateBoard.controller.index;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernateBoard.entity.member.Member;
-import org.hibernateBoard.util.HttpSessionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
