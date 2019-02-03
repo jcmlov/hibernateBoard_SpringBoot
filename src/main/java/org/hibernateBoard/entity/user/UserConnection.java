@@ -1,4 +1,4 @@
-package org.hibernateBoard.security.userConnection;
+package org.hibernateBoard.entity.user;
 
 import lombok.Getter;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import org.hibernateBoard.security.social.facebook.FacebookUserDetails;
 import org.hibernateBoard.security.social.google.GoogleUserDetails;
-
+import org.hibernateBoard.security.userConnection.ProviderType;
 
 import javax.persistence.*;
 

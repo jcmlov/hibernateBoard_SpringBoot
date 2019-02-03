@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.hibernateBoard.security.service.UserService;
+import org.hibernateBoard.entity.user.UserConnection;
 import org.hibernateBoard.security.social.SocialService;
-import org.hibernateBoard.security.userConnection.UserConnection;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;

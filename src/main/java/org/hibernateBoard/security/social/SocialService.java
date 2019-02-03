@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernateBoard.entity.user.User;
+import org.hibernateBoard.entity.user.UserConnection;
 import org.hibernateBoard.security.service.UserService;
-import org.hibernateBoard.security.userConnection.UserConnection;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

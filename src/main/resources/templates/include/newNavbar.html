@@ -35,15 +35,12 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-			{{#memberInfo}}
 				<li class="active">
 					<a href="/main">Home</a>
 				</li>
-			{{/memberInfo}}
 				<li>
 					<a href="#">About Us</a>
 				</li>
-			{{#memberInfo}}
 				<li>
 					<a href="/portfolio/portfolioList">포트폴리오</a>
 				</li>
@@ -51,7 +48,7 @@
 					<a href="/board/boardList">게시판</a>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{memberInfo.memberId}} <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="#" id="updateMemberInfo">개인정보 수정</a></li>
 					</ul>
@@ -59,16 +56,12 @@
                 <li>
 					<a href="#" id="logOutMember">로그아웃</a>
 				</li>
-                <input type="hidden" id="uNo" value="{{memberInfo.memberNo}}">
-			{{/memberInfo}}
-			{{^memberInfo}}
 				<li>
 					<a href="/member/memberForm">회원가입</a>
 				</li>
 				<li>
 					<a href="/login/loginForm">로그인</a>
 				</li>
-			{{/memberInfo}}
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

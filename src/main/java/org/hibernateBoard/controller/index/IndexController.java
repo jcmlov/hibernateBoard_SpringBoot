@@ -1,11 +1,12 @@
 package org.hibernateBoard.controller.index;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value="/")
@@ -16,8 +17,8 @@ public class IndexController {
 		return "/index";
 	}
 	
-	@GetMapping(value="main")
-	public String indexMain(Model model, HttpSession session) {
+	@RequestMapping(value="main", method = RequestMethod.GET)
+	public String indexMain(Model model, Principal principal) {
 		return "/index/main";
 	}
 }
