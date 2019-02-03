@@ -7,71 +7,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		$("#submitBtn").on("click", function() {
-			if($("#memberId").val() == '') {
-				alert("사용자 이름을 입력하세요.");
-				return false;
-			}
-			if($("#memberPw").val() == '') {
-				alert("비밀번호를 입력하세요.");
-				return false;
-			}
-			
-			$("#loginForm").submit();
-		});
 	});
-
-	function statusChangeCallback(response) {
-	    console.log('statusChangeCallback');
-	    console.log(response);
-	    // The response object is returned with a status field that lets the
-	    // app know the current login status of the person.
-	    // Full docs on the response object can be found in the documentation
-	    // for FB.getLoginStatus().
-	    if (response.status === 'connected') {
-	      // Logged into your app and Facebook.
-	      testAPI();
-	    } else {
-	      // The person is not logged into your app or we are unable to tell.
-	      document.getElementById('status').innerHTML = 'Please log ' +
-	        'into this app.';
-	    }
-	  }
-	
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '227915118082996',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v3.1'
-    });
-      
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-  
-
-  function checkLoginState() {
-	  FB.getLoginStatus(function(response) {
-	      statusChangeCallback(response);
-	    });
-	}
-  
-  function testAPI() {
-	    console.log('Welcome!  Fetching your information.... ');
-	    FB.api('/me', function(response) {
-	      console.log('Successful login for: ' + response.name);
-	      document.getElementById('status').innerHTML =
-	        'Thanks for logging in, ' + response.name + '!';
-	    });
-	  }
 </script>
 <body>
 	{{> include/newNavbar }}
@@ -84,11 +20,11 @@
 				</div>
 		        <h2 class="text-center">Member Login</h2>
 				<div class="social-btn text-center">
-					<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 					<a href="/login/facebook" class="btn btn-primary btn-block btn-lg"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
 					<a href="#" class="btn btn-info btn-block btn-lg"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
-					<a href="#" class="btn btn-danger btn-block btn-lg"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+					<a href="/login/google" class="btn btn-danger btn-block btn-lg"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
 				</div>
+				<!-- 
 				<div class="or-seperator"><i>or</i></div>
 				<div class="form-group">
 					<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디" required="required">
@@ -100,8 +36,9 @@
 		            <button type="submit" class="btn btn-primary btn-lg btn-block login-btn" id="submitBtn">로그인</button>
 		        </div>
 				<p class="text-center small"><a href="#">Forgot Password?</a></p>
+				-->
 		    </form>
-		    <p class="text-center small">Don't have an account? <a href="/member/memberForm">Sign up here!</a></p>
+		    <!-- <p class="text-center small">Don't have an account? <a href="/member/memberForm">Sign up here!</a></p> -->
 		</div>
 	</div>
 </body>

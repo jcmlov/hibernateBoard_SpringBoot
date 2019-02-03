@@ -161,10 +161,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-		http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling()
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
-				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+		http.antMatcher("/**").authorizeRequests()
+			.antMatchers("/login/loginForm").permitAll()
+			.antMatchers("/").permitAll().anyRequest()
+			.authenticated().and().exceptionHandling()
+			.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
+			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
 		// logout
 		http.logout()
