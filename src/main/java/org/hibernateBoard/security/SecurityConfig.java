@@ -47,8 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/lib/**",
 						"/images/**",
 						"/webjars/**",
-						"/**/favicon.ico",
-						"/error");
+						"/**/favicon.ico");
 	}
 	
 	/*
@@ -152,9 +151,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-		http.antMatcher("/**").authorizeRequests()
+		http
+			.authorizeRequests()
 			.antMatchers("/", "/login/loginForm").permitAll()
 			.antMatchers("/main").hasAnyRole("ADMIN, USER")
+			.antMatchers("/**").permitAll()
 			.anyRequest()
 			.authenticated().and().exceptionHandling()
 			.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
