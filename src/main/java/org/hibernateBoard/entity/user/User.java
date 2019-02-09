@@ -5,13 +5,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = -8339396578442648980L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)

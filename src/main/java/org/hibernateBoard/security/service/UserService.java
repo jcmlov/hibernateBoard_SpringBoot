@@ -3,11 +3,11 @@ package org.hibernateBoard.security.service;
 import org.hibernateBoard.entity.user.User;
 import org.hibernateBoard.entity.user.UserConnection;
 import org.hibernateBoard.repository.user.UserRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 
-@Service
+@Component
 @AllArgsConstructor
 public class UserService {
 	

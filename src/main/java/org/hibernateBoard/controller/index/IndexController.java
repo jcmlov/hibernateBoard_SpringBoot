@@ -1,5 +1,7 @@
 package org.hibernateBoard.controller.index;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ public class IndexController {
 	}
 	
 	@GetMapping(value="main")
-	public String indexMain(Model model) {
+	public String indexMain(Model model, Principal principal) {
 		return "/index/main";
 	}
 }

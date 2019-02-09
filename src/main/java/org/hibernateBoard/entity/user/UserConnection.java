@@ -9,14 +9,18 @@ import org.hibernateBoard.security.social.facebook.FacebookUserDetails;
 import org.hibernateBoard.security.social.google.GoogleUserDetails;
 import org.hibernateBoard.security.userConnection.ProviderType;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_connection")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserConnection {
+public class UserConnection implements Serializable {
 	
+	private static final long serialVersionUID = 6985623773601474277L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
