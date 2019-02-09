@@ -27,7 +27,6 @@ public class FacebookOAuth2ClientAuthenticationProcessingFilter extends OAuth2Cl
         super("/login/facebook");
         this.socialService = socialService;
         mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
     }
 
     @Override

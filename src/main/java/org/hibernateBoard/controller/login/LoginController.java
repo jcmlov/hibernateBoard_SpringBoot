@@ -11,7 +11,6 @@ public class LoginController {
 
 	@GetMapping(value="/loginForm")
 	public String loginForm(HttpServletRequest req) {
-		
 		return "/login/loginForm";
 	}
 	

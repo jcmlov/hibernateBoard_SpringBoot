@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.Filter;
 
+import org.hibernateBoard.security.handler.CustomLoginSuccessHandler;
 import org.hibernateBoard.security.social.SocialService;
 import org.hibernateBoard.security.social.facebook.FacebookOAuth2ClientAuthenticationProcessingFilter;
 import org.hibernateBoard.security.social.google.GoogleOAuth2ClientAuthenticationProcessingFilter;
@@ -50,125 +51,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/**/favicon.ico");
 	}
 	
-	/*
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.authorizeRequests()
-			.antMatchers("/ajax/**").permitAll()
-			.antMatchers("/login/loginForm").permitAll()
-			.antMatchers("/member/memberForm").permitAll()
-			.antMatchers("/member/memberCreate").permitAll()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/member/**").hasAnyRole("ADMIN, USER")
-			.antMatchers("/board/**").hasAnyRole("ADMIN, USER")
-			.antMatchers("/main/**").hasAnyRole("ADMIN, USER")
-			.antMatchers("/**").hasAnyRole("ADMIN, USER")
-			.and()			
-		.formLogin()
-			.usernameParameter("memberId")
-			.passwordParameter("memberPw")
-			.loginPage("/login/loginForm")
-			.loginProcessingUrl("/login/loginAction")
-			.defaultSuccessUrl("/main")
-			.successHandler(successHandler())
-			.failureUrl("/login/loginForm")
-	    	.and()
-    	.logout()
-    		.logoutSuccessUrl("/")
-    		.invalidateHttpSession(true)
-    		.permitAll()
-    		.and()
-    		.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-		
-		http.csrf().disable();
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-	  return new BCryptPasswordEncoder();
-	}
-	
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-	}
-
-	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-	    return new CustomLoginSuccessHandler("/main");
-	}
-
-	private Filter ssoFilter() {
-		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/facebook");
-		OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
-		facebookFilter.setRestTemplate(facebookTemplate);
-		UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(),
-				facebook().getClientId());
-		tokenServices.setRestTemplate(facebookTemplate);
-		facebookFilter.setTokenServices(tokenServices);
-		return facebookFilter;
-	}
-	
-	@Bean
-	@ConfigurationProperties("facebook.client")
-	public AuthorizationCodeResourceDetails facebook() {
-		return new AuthorizationCodeResourceDetails();
-	}
-	@Bean
-	@ConfigurationProperties("facebook.resource")
-	public ResourceServerProperties facebookResource() {
-		return new ResourceServerProperties();
-	}
-	
-	@Bean
-	public FilterRegistrationBean oauth2ClientFilterRegistration(
-	    OAuth2ClientContextFilter filter) {
-	  FilterRegistrationBean registration = new FilterRegistrationBean();
-	  registration.setFilter(filter);
-	  registration.setOrder(-100);
-	  return registration;
-	}
-	
-	@Bean
-    @Primary
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-
-        System.out.println("facebook.yml Call");
-
-        YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        yaml.setResources(new ClassPathResource("facebook.yml"));
-
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
-        return propertySourcesPlaceholderConfigurer;
-    }
-	*/
-	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
 
         http.csrf().disable();
 
 		http
 			.authorizeRequests()
 			.antMatchers("/", "/login/loginForm").permitAll()
-			.antMatchers("/main").hasAnyRole("ADMIN, USER")
+			.antMatchers("/main").hasAnyRole("ROLE_ADMIN, ROLE_USER")
 			.antMatchers("/**").permitAll()
 			.anyRequest()
 			.authenticated().and().exceptionHandling()
 			.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
 			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
-		// logout
 		http.logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
                 .permitAll();
-		// @formatter:on
     }
 
     @Bean
@@ -205,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setRestTemplate(restTemplate);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         filter.setTokenServices(tokenServices);
+        filter.setAuthenticationSuccessHandler(new CustomLoginSuccessHandler("/main"));
         tokenServices.setRestTemplate(restTemplate);
         return filter;
     }
