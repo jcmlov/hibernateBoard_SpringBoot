@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import org.hibernateBoard.security.social.facebook.FacebookUserDetails;
 import org.hibernateBoard.security.social.google.GoogleUserDetails;
+import org.hibernateBoard.security.social.kakao.KakaoUserDetails;
 import org.hibernateBoard.security.userConnection.ProviderType;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ import javax.persistence.*;
 @Getter
 public class UserConnection implements Serializable {
 	
-	private static final long serialVersionUID = 6985623773601474277L;
+	private static final long serialVersionUID = -7375024978245951302L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,5 +88,17 @@ public class UserConnection implements Serializable {
                 .provider(ProviderType.FACEBOOK)
                 .build();
     }
+
+	public static UserConnection valueOf(KakaoUserDetails userDetails) {
+		return UserConnection.builder()
+                .expireTime(userDetails.getExpires_in())
+                .accessToken(userDetails.getAccess_token())
+                .providerId(userDetails.getId())
+                .email(userDetails.getEmail())
+                .displayName(userDetails.getNickname())
+                .imageUrl(userDetails.getThumbnail_image())
+                .provider(ProviderType.KAKAO)
+                .build();
+	}
 
 }

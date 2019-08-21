@@ -9,6 +9,7 @@ import org.hibernateBoard.security.handler.CustomLoginSuccessHandler;
 import org.hibernateBoard.security.social.SocialService;
 import org.hibernateBoard.security.social.facebook.FacebookOAuth2ClientAuthenticationProcessingFilter;
 import org.hibernateBoard.security.social.google.GoogleOAuth2ClientAuthenticationProcessingFilter;
+import org.hibernateBoard.security.social.kakao.KakaoOAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -60,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/", "/login/loginForm").permitAll()
 			.antMatchers("/main").hasAnyRole("ROLE_ADMIN, ROLE_USER")
+			.antMatchers("/oauth").permitAll()
 			.antMatchers("/**").permitAll()
 			.anyRequest()
 			.authenticated().and().exceptionHandling()
@@ -93,12 +95,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public ClientResources google() {
         return new ClientResources();
     }
+    
+    @Bean
+    @ConfigurationProperties("kakao")
+    public ClientResources kakao() {
+        return new ClientResources();
+    }
 
     private Filter ssoFilter() {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
         filters.add(ssoFilter(google(), new GoogleOAuth2ClientAuthenticationProcessingFilter(socialService)));
         filters.add(ssoFilter(facebook(), new FacebookOAuth2ClientAuthenticationProcessingFilter(socialService)));
+        filters.add(ssoFilter(kakao(), new KakaoOAuth2ClientAuthenticationProcessingFilter(socialService)));
         filter.setFilters(filters);
         return filter;
     }
@@ -108,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setRestTemplate(restTemplate);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId());
         filter.setTokenServices(tokenServices);
-        filter.setAuthenticationSuccessHandler(new CustomLoginSuccessHandler("/main"));
+        filter.setAuthenticationSuccessHandler(new CustomLoginSuccessHandler("/oauth"));
         tokenServices.setRestTemplate(restTemplate);
         return filter;
     }
